@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: equation-without-numbering
+# key: eq*
+# --
+\begin{equation*}
+  $0
+\end{equation*}

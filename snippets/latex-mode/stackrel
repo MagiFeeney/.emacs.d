@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: stackrel
+# key: s=
+# --
+\stackrel{\mathbf{($1)}}{$2}$0

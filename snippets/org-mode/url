@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: url
+# key: u
+# --
+[[${1:}][${2:}]]$0

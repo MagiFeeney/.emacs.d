@@ -153,3 +153,19 @@ If isRenew is non-nil, it indicates that my-password already has a value."
   (interactive "fPrint file: ")
   (let ((cmd (format "smbclient //nts27.comp.nus.edu.sg/psf501 -A ~/.smbcredentials -c 'print \%s\'" (expand-file-name filename))))
     (shell-command cmd)))
+
+;; Find or create today's daily note in Denote.
+;;;###autoload
+(defun my/denote-daily-note ()
+  "Find or create today's daily note in Denote."
+  (interactive)
+  (let* ((date (format-time-string "%Y%m%d"))
+         (pattern (concat "^" date "T[0-9]\\{6\\}__daily\\.org$"))
+         (files (directory-files (denote-directory) t pattern))
+         (file (car files)))
+    (if file
+        (find-file file)
+      ;; If no file exists, create one
+      (denote
+       "daily"
+       '("daily")))))

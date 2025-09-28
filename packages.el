@@ -88,7 +88,7 @@
   :bind (:map scamx-denote-map
 	      (("d" . denote)
 	       ("f" . denote-open-or-create)
-	       ("." . denote-date)
+	       ("." . my/denote-daily-note)
 	       ("r" . denote-rename-file)
 	       ("l" . denote-link)
 	       ("b" . denote-backlinks)

@@ -88,7 +88,7 @@
   :bind (:map scamx-denote-map
 	      (("d" . denote)
 	       ("f" . denote-open-or-create)
-	       ("." . my/denote-daily-note)
+	       ("." . denote-dailies-find-today)
 	       ("r" . denote-rename-file)
 	       ("l" . denote-link)
 	       ("b" . denote-backlinks)
@@ -96,6 +96,20 @@
 	       ("s" . denote-grep)))
   :config
   (setq denote-directory (concat org-directory "/Denote"))
+
+  (defun denote-dailies-find-today ()
+    "Find or create today's daily note in Denote."
+    (interactive)
+    (let* ((date (format-time-string "%Y%m%d"))
+           (pattern (concat "^" date "T[0-9]\\{6\\}__daily\\.org$"))
+           (files (directory-files (denote-directory) t pattern))
+           (file (car files)))
+      (if file
+          (find-file file)
+	;; If no file exists, create one
+	(denote
+	 ""
+	 '("daily")))))
 
   ;; Automatically rename Denote buffers when opening them so that
   ;; instead of their long file name they have, for example, a literal
@@ -106,7 +120,7 @@
 ;; LaTeX
 (use-package tex
   :ensure auctex
-  :defer t    
+  :defer t
   :custom
   (TeX-view-program-selection '((output-pdf "PDF Tools")))
   (TeX-source-correlate-start-server t)
@@ -124,9 +138,9 @@
                   (pdf-tools-install)))
   :config
   (add-hook 'TeX-after-compilation-finished-functions 'TeX-revert-document-buffer)
-  
+
   ;; (add-hook 'LaTeX-mode-hook #'scamx-motion-latex-mode)
-  
+
   (load-file "~/.emacs.d/setup/latex/function.el") ; useful functions
   (load-file "~/.emacs.d/setup/latex/reference.el") ; reference management
   )

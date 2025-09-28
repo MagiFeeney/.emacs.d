@@ -9,11 +9,6 @@
   (vertico-cycle t)
   )
 
-;; ;; Persist history over Emacs restarts. Vertico sorts by history position.
-;; (use-package savehist
-;;   :ensure nil
-;;   :hook (after-init . savehist-mode))
-
 ;; A few more useful configurations...
 (use-package emacs
   ;; :defer t
@@ -24,6 +19,7 @@
   ;; commands are hidden in normal buffers. This setting is useful beyond
   ;; Vertico.
   (read-extended-command-predicate #'command-completion-default-include-p)
+  (text-mode-ispell-word-completion nil)
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -41,13 +37,21 @@
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
+;; For corfu
+(defun orderless-fast-dispatch (word index total)
+  (and (= index 0) (= total 1) (length< word 4)
+       (cons 'orderless-literal-prefix word)))
+
 (use-package orderless
   :ensure t
-  :defer t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  :config
+  (orderless-define-completion-style orderless-fast
+    (orderless-style-dispatchers '(orderless-fast-dispatch))
+    (orderless-matching-styles '(orderless-literal orderless-regexp))))
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
@@ -58,7 +62,7 @@
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :ensure t
-  :defer t  
+  :defer t
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
@@ -172,127 +176,54 @@
   ;; (setq consult-project-function nil)
 )
 
-
-;; ;; In buffer completion
-;; (use-package corfu
-;;   ;; Optional customizations
-;;   :custom
-;;   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-;;   (corfu-auto t)                 ;; Enable auto completion
-;;   (corfu-separator ?\s)          ;; Orderless field separator
-;;   (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-;;   (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-;;   (corfu-preview-current nil)    ;; Disable current candidate preview
-;;   (corfu-preselect 'prompt)      ;; Preselect the prompt
-;;   (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-;;   (corfu-scroll-margin 5)        ;; Use scroll margin
-
-;;   ;; Enable Corfu only for certain modes.
-;;   ;; :hook ((prog-mode . corfu-mode)
-;;   ;;        (shell-mode . corfu-mode)
-;;   ;; 	 (eshell-mode . corfu-mode))
-
-;;   ;; Use TAB for cycling, default is `corfu-complete'.
-;;   :bind
-;;   (:map corfu-map
-;;         ("TAB" . corfu-next)
-;;         ([tab] . corfu-next)
-;;         ("S-TAB" . corfu-previous)
-;;         ([backtab] . corfu-previous))
-
-;;   :init
-;;   (global-corfu-mode))
-
-;; ;; A few more useful configurations...
-;; (use-package emacs
-;;   :init
-;;   ;; TAB cycle if there are only few candidates
-;;   (setq completion-cycle-threshold 3)
-
-;;   ;; Enable indentation+completion using the TAB key.
-;;   ;; `completion-at-point' is often bound to M-TAB.
-;;   (setq tab-always-indent 'complete)
-
-;;   ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
-;;   ;; try `cape-dict'.
-;;   (setq text-mode-ispell-word-completion nil)
-
-;;   ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current
-;;   ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
-;;   ;; setting is useful beyond Corfu.
-;;   (setq read-extended-command-predicate #'command-completion-default-include-p))
-
-;; (use-package corfu
-;;   :ensure t
-;;   :defer t
-;;   ;; :commands (corfu-mode global-corfu-mode)
-
-;;   :hook ((prog-mode . corfu-mode)
-;;          (shell-mode . corfu-mode)
-;;          (eshell-mode . corfu-mode))
-
-;;   :custom
-;;   (corfu-auto t)                 ;; Enable auto completion
-;;   ;; Hide commands in M-x which do not apply to the current mode.
-;;   (read-extended-command-predicate #'command-completion-default-include-p)
-;;   ;; Disable Ispell completion function. As an alternative try `cape-dict'.
-;;   (text-mode-ispell-word-completion nil)
-;;   (tab-always-indent 'complete)
-
-;;   ;; Enable Corfu
-;;   :config
-;;   (global-corfu-mode))
-
-;; (use-package cape
-;;   :ensure t
-;;   :defer t
-;;   ;; :commands (cape-dabbrev cape-file cape-elisp-block)
-;;   :bind ("C-c j" . cape-prefix-map)
-;;   :init
-;;   ;; Add to the global default value of `completion-at-point-functions' which is
-;;   ;; used by `completion-at-point'.
-;;   (add-hook 'completion-at-point-functions #'cape-dabbrev)
-;;   (add-hook 'completion-at-point-functions #'cape-file)
-;;   (add-hook 'completion-at-point-functions #'cape-elisp-block))
-
-;; (use-package company
-;;   :ensure t
-;;   :config
-;;   (setq company-minimum-prefix-length 2)
-;;   :init
-;;   (global-company-mode))
-
-;; (use-package company
-;;   :ensure t
-;;   :hook (after-init . global-company-mode)
-;;   :bind
-;;   ("C-x y" . company-yasnippet)
-;;   :config
-;;   (setq company-minimum-prefix-length 2))
-
-;; (use-package corfu
-;;   :ensure t
-;;   :hook (after-init . global-corfu-mode)
-;;   :bind (:map corfu-map ("<tab>" . corfu-complete))
-;;   :config
-;;   (setq tab-always-indent 'complete)
-;;   (setq corfu-preview-current nil)
-;;   (setq corfu-min-width 20)
-
-;;   (setq corfu-popupinfo-delay '(1.25 . 0.5))
-;;   (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
-;;   )
-
-(use-package company
+;; In-buffer completion
+(use-package corfu
   :ensure t
-  :hook (after-init . global-company-mode)
-  :bind
-  ("C-c y" . company-yasnippet)
+  :hook (after-init . global-corfu-mode)
+  :bind (:map corfu-map ("<tab>" . corfu-complete))
+  :custom
+  (corfu-cycle t)                      ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                       ;; Enable auto completion
+  (corfu-separator ?\s)                ;; Orderless field separator
+  (corfu-quit-at-boundary nil)         ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match 'separator)     ;; Never quit, even if there is no match
+  (corfu-quit-no-match t)              ;; quit, even if there is no match
+  (corfu-preview-current nil)          ;; Disable current candidate preview
+  (corfu-preselect t)                  ;; Preselect the prompt
+  (corfu-scroll-margin 3)              ;; Use scroll margin
+  (corfu-popupinfo-mode 1)             ;; shows documentation after `corfu-popupinfo-delay'
   :config
-  (setq company-minimum-prefix-length 2))
+  (setq tab-always-indent 'complete
+	corfu-min-width 20
+	corfu-popupinfo-delay '(1.25 . 0.5)
+	corfu-auto-delay  0.01
+	corfu-auto-prefix 0.01)
+
+  (add-hook 'corfu-mode-hook
+            (lambda ()
+              (setq-local completion-styles '(orderless-fast basic)
+                          completion-category-overrides nil
+                          completion-category-defaults nil))))
+
+;; Completion at point
+(use-package cape
+  :ensure t
+  :defer t
+  :bind ("C-c j" . cape-prefix-map)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
+
+;; capf for yasnippet
+(use-package yasnippet-capf
+  :ensure t
+  :after cape
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 ;; sort candidates based on occurrence
-(use-package company-prescient
-  :after company
+(use-package corfu-prescient
+  :after corfu
   :config
-  (company-prescient-mode))
+  (corfu-prescient-mode))

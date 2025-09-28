@@ -16,8 +16,8 @@
   (forward-line -1)
   (indent-according-to-mode))
 
-(global-set-key [(meta up)]  'move-line-up)
-(global-set-key [(meta down)]  'move-line-down)
+(global-set-key (kbd "M-p")  'move-line-up)
+(global-set-key (kbd "M-n")  'move-line-down)
 
 ;; create buffer
 ;;;###autoload

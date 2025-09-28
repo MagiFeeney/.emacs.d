@@ -7,8 +7,11 @@
 	LaTeX-environment
 	LaTeX-insert-item
 	LaTeX-insert-left-brace
+	LaTeX-math-Delta
 	LaTeX-math-Upsilon
 	LaTeX-math-beta
+	LaTeX-math-delta
+	LaTeX-math-epsilon
 	LaTeX-math-eta
 	LaTeX-math-gamma
 	LaTeX-math-kappa
@@ -145,6 +148,8 @@
 	scamx-kill-line
 	scamx-kill-paragraph
 	scamx-kill-word
+	scamx-mark-inside-pairs
+	scamx-mark-outside-pairs
 	sgml-slash
 	split-line
 	transpose-sexps
@@ -176,6 +181,7 @@
 	meow-prev-expand
 	meow-visit-all
 	mouse-buffer-menu
+	mouse-drag-vertical-line
 	mouse-set-region
 	next-buffer
 	scamx-forward-paragraph

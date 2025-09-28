@@ -19,41 +19,41 @@
 (defun display-startup-echo-area-message ()
   (message ""))
 
-(defun ar/show-welcome-buffer ()
-  "Show *Welcome* buffer."
-  (set-frame-size (selected-frame) 75 30)
-  (with-current-buffer (get-buffer-create "*Welcome*")
-    (setq truncate-lines t)
-    (let* ((buffer-read-only)
-           ;; (image-path "~/.emacs.d/emacs.png")
-           (image-path "~/.emacs.d/emacs-rock.png")
-           ;; (image-path "~/.emacs.d/emacs.svg")
-           (image (create-image image-path nil nil :scale 0.2))
-           (size (image-size image))
-           (height (cdr size))
-           (width (car size))
-           (top-margin (floor (/ (- (window-height) height) 2)))
-           (left-margin (floor (/ (- (window-width) width) 2)))
-           (title "Free as in Freedom"))
-      (erase-buffer)
-      (setq mode-line-format nil)
-      (goto-char (point-min))
-      (insert (make-string top-margin ?\n ))
-      (insert (make-string left-margin ?\ ))
-      (insert-image image)
-      (insert "\n\n\n")
-      (insert (make-string (floor (/ (- (- (window-width) 6) (string-width title)) 2)) ?\ )) ; manually tuned
-      ;; (insert (propertize title 'face `(:foreground "#9783b1" :background "#1E1826" :height 130))))
-      (insert (propertize title 'face `(:foreground "#0f0f0f" :background "#d0d6ff" :height 160))))
-    (setq cursor-type nil)
-    (read-only-mode +1)
-    (switch-to-buffer (current-buffer))
-    (local-set-key (kbd "q") 'kill-this-buffer)))
+;; (defun ar/show-welcome-buffer ()
+;;   "Show *Welcome* buffer."
+;;   (set-frame-size (selected-frame) 75 30)
+;;   (with-current-buffer (get-buffer-create "*Welcome*")
+;;     (setq truncate-lines t)
+;;     (let* ((buffer-read-only)
+;;            ;; (image-path "~/.emacs.d/emacs.png")
+;;            (image-path "~/.emacs.d/emacs-rock.png")
+;;            ;; (image-path "~/.emacs.d/emacs.svg")
+;;            (image (create-image image-path nil nil :scale 0.2))
+;;            (size (image-size image))
+;;            (height (cdr size))
+;;            (width (car size))
+;;            (top-margin (floor (/ (- (window-height) height) 2)))
+;;            (left-margin (floor (/ (- (window-width) width) 2)))
+;;            (title "Free as in Freedom"))
+;;       (erase-buffer)
+;;       (setq mode-line-format nil)
+;;       (goto-char (point-min))
+;;       (insert (make-string top-margin ?\n ))
+;;       (insert (make-string left-margin ?\ ))
+;;       (insert-image image)
+;;       (insert "\n\n\n")
+;;       (insert (make-string (floor (/ (- (- (window-width) 6) (string-width title)) 2)) ?\ )) ; manually tuned
+;;       ;; (insert (propertize title 'face `(:foreground "#9783b1" :background "#1E1826" :height 130))))
+;;       (insert (propertize title 'face `(:foreground "#0f0f0f" :background "#d0d6ff" :height 160))))
+;;     (setq cursor-type nil)
+;;     (read-only-mode +1)
+;;     (switch-to-buffer (current-buffer))
+;;     (local-set-key (kbd "q") 'kill-this-buffer)))
 
-(when (< (length command-line-args) 2)
-  (add-hook 'emacs-startup-hook (lambda ()
-                                  (when (display-graphic-p)
-                                    (ar/show-welcome-buffer)))))
+;; (when (< (length command-line-args) 2)
+;;   (add-hook 'emacs-startup-hook (lambda ()
+;;                                   (when (display-graphic-p)
+;;                                     (ar/show-welcome-buffer)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -65,9 +65,10 @@
  '(ansi-color-names-vector
    ["#4F4F4F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3"
     "#6F6F6F"])
- '(custom-enabled-themes '(modus-operandi-deuteranopia))
+ '(custom-enabled-themes '(gruvbox-dark-hard))
  '(custom-safe-themes
-   '("4641b3ffceb32d3b79d1c178b2a6d73094fe59122d354c0d00ef0b671b4788d7"
+   '("8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
+     "4641b3ffceb32d3b79d1c178b2a6d73094fe59122d354c0d00ef0b671b4788d7"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
      "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
@@ -178,6 +179,7 @@
      "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476"
      "f76b5717f04b34542972fb4d320df806d9a465f16c07b31b4bd6e79e4feb1794"
      default))
+ '(default-frame-alist '((fullscreen . maximized)))
  '(delete-active-region t)
  '(ensime-sem-high-faces
    '((var :foreground "#9876aa" :underline (:style wave :color "yellow"))
@@ -206,11 +208,12 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex company company-prescient consult denote docker
-		doom-themes doric-themes ebib expand-region ivy-bibtex
-		magit magit-todos marginalia meow multiple-cursors
-		orderless org-ref org-roam pdf-tools tramp vertico
-		vterm yasnippet-snippets))
+   '(ace-window auctex cape consult corfu corfu-prescient denote docker
+		doom-themes doric-themes ebib expand-region
+		gruvbox-theme ivy-bibtex magit magit-todos marginalia
+		markdown-mode meow multiple-cursors orderless org-ref
+		org-roam pdf-tools tramp vertico vterm yasnippet-capf
+		yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
  '(send-mail-function 'mailclient-send-it)
@@ -245,3 +248,11 @@
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 160 :width normal))))
+ '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
+ '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d")))))

@@ -172,3 +172,10 @@
 (use-package magit-todos
   :after magit
   :config (magit-todos-mode 1))
+
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :bind (:map markdown-mode-map
+         ("C-c C-e" . markdown-do)))

@@ -94,7 +94,8 @@
    '("r" . isearch-toggle-regexp)
    '("[" . isearch-beginning-of-buffer)
    '("]" . isearch-end-of-buffer)
-   '("." . isearch-forward-thing-at-point))
+   '("." . isearch-forward-thing-at-point)
+   '("e" . isearch-edit-string))
   (meow-normal-define-key
    '("x" . scamx-X-keymap)
    '("?" . scamx-help-keymap)

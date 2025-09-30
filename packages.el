@@ -88,7 +88,9 @@
   :bind (:map scamx-denote-map
 	      (("d" . denote)
 	       ("f" . denote-open-or-create)
-	       ("." . denote-dailies-find-today)
+	       ("," . denote-dailies-goto-yesterday)
+	       ("." . denote-dailies-goto-today)
+	       ("/" . denote-dailies-goto-tomorrow)
 	       ("r" . denote-rename-file)
 	       ("l" . denote-link)
 	       ("b" . denote-backlinks)
@@ -97,20 +99,8 @@
   :config
   (setq denote-directory (concat org-directory "/Denote"))
 
-  (defun denote-dailies-find-today ()
-    "Find or create today's daily note in Denote."
-    (interactive)
-    (let* ((date (format-time-string "%Y%m%d"))
-           (pattern (concat "^" date "T[0-9]\\{6\\}__daily\\.org$"))
-           (files (directory-files (denote-directory) t pattern))
-           (file (car files)))
-      (if file
-          (find-file file)
-	;; If no file exists, create one
-	(denote
-	 ""
-	 '("daily")))))
-
+  (load-file "~/.emacs.d/setup/denote/function.el") ; useful functions  
+  
   ;; Automatically rename Denote buffers when opening them so that
   ;; instead of their long file name they have, for example, a literal
   ;; "[D]" followed by the file's title.  Read the doc string of

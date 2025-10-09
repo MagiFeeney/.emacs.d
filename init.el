@@ -19,42 +19,6 @@
 (defun display-startup-echo-area-message ()
   (message ""))
 
-;; (defun ar/show-welcome-buffer ()
-;;   "Show *Welcome* buffer."
-;;   (set-frame-size (selected-frame) 75 30)
-;;   (with-current-buffer (get-buffer-create "*Welcome*")
-;;     (setq truncate-lines t)
-;;     (let* ((buffer-read-only)
-;;            ;; (image-path "~/.emacs.d/emacs.png")
-;;            (image-path "~/.emacs.d/emacs-rock.png")
-;;            ;; (image-path "~/.emacs.d/emacs.svg")
-;;            (image (create-image image-path nil nil :scale 0.2))
-;;            (size (image-size image))
-;;            (height (cdr size))
-;;            (width (car size))
-;;            (top-margin (floor (/ (- (window-height) height) 2)))
-;;            (left-margin (floor (/ (- (window-width) width) 2)))
-;;            (title "Free as in Freedom"))
-;;       (erase-buffer)
-;;       (setq mode-line-format nil)
-;;       (goto-char (point-min))
-;;       (insert (make-string top-margin ?\n ))
-;;       (insert (make-string left-margin ?\ ))
-;;       (insert-image image)
-;;       (insert "\n\n\n")
-;;       (insert (make-string (floor (/ (- (- (window-width) 6) (string-width title)) 2)) ?\ )) ; manually tuned
-;;       ;; (insert (propertize title 'face `(:foreground "#9783b1" :background "#1E1826" :height 130))))
-;;       (insert (propertize title 'face `(:foreground "#0f0f0f" :background "#d0d6ff" :height 160))))
-;;     (setq cursor-type nil)
-;;     (read-only-mode +1)
-;;     (switch-to-buffer (current-buffer))
-;;     (local-set-key (kbd "q") 'kill-this-buffer)))
-
-;; (when (< (length command-line-args) 2)
-;;   (add-hook 'emacs-startup-hook (lambda ()
-;;                                   (when (display-graphic-p)
-;;                                     (ar/show-welcome-buffer)))))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

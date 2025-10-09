@@ -186,12 +186,12 @@
   (corfu-auto t)                       ;; Enable auto completion
   (corfu-separator ?\s)                ;; Orderless field separator
   (corfu-quit-at-boundary nil)         ;; Never quit at completion boundary
-  ;; (corfu-quit-no-match 'separator)     ;; Never quit, even if there is no match
   (corfu-quit-no-match t)              ;; quit, even if there is no match
   (corfu-preview-current nil)          ;; Disable current candidate preview
   (corfu-preselect t)                  ;; Preselect the prompt
   (corfu-scroll-margin 3)              ;; Use scroll margin
   (corfu-popupinfo-mode 1)             ;; shows documentation after `corfu-popupinfo-delay'
+  (corfu-on-exact-match nil)           ;; Don't complete while typing
   :config
   (setq tab-always-indent 'complete
 	corfu-min-width 20

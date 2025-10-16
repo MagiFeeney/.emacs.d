@@ -167,7 +167,7 @@ If isRenew is non-nil, it indicates that my-password already has a value."
                   "Choose Colab option: "
                   '("test" "create" "dashboard") nil t))
          (url (pcase choice
-                ("test" "https://colab.research.google.com/drive/1QMYE5y8SHYtr4E7gD93Yxq_MYIscFzGa") ;; ← change this to your real test Colab URL
+                ("test" "https://colab.research.google.com/drive/1QMYE5y8SHYtr4E7gD93Yxq_MYIscFzGa")
                 ("create" "https://colab.research.google.com/#create=true")
                 ("dashboard" "https://colab.research.google.com/")
                 (_ (error "Unknown option: %s" choice)))))

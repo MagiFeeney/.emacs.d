@@ -11,7 +11,7 @@
 
 ;; utility map
 (defvar-keymap scamx-utility-map
-  :doc "set to a specific mode"
+  :doc "utilities"
   "c" 'google-colab
   "j" 'git-clone-from-kill-ring)
 

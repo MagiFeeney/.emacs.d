@@ -9,6 +9,12 @@
   "p" 'python-mode
   "d" 'docker)
 
+;; utility map
+(defvar-keymap scamx-utility-map
+  :doc "set to a specific mode"
+  "c" 'google-colab
+  "j" 'git-clone-from-kill-ring)
+
 ;; define scamx X map
 (defvar scamx-X-keymap (make-sparse-keymap))
 (defalias 'scamx-X-keymap scamx-X-keymap)
@@ -39,6 +45,7 @@
 (define-key scamx-X-keymap (kbd "o") scamx-org-map)
 (define-key scamx-X-keymap (kbd "d") scamx-denote-map)
 (define-key scamx-X-keymap (kbd "m") scamx-set-mode-map)
+(define-key scamx-X-keymap (kbd "u") scamx-utility-map)
 ;; customized
 (define-key scamx-X-keymap (kbd "p") 'scamx-tramp-find-file)
 (define-key scamx-X-keymap (kbd "\\") (lambda () (interactive) (kill-new buffer-file-name)))

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; move line around
 ;;;###autoload
 (defun move-line-up ()
@@ -153,3 +155,56 @@ If isRenew is non-nil, it indicates that my-password already has a value."
   (interactive "fPrint file: ")
   (let ((cmd (format "smbclient //nts27.comp.nus.edu.sg/psf501 -A ~/.smbcredentials -c 'print \%s\'" (expand-file-name filename))))
     (shell-command cmd)))
+
+;;;##autoload
+(defun google-colab ()
+  "Open Google Colab in one of three modes:
+  test  - open a preassigned Colab test file,
+  create - create a new notebook,
+  dashboard - open the Colab dashboard."
+  (interactive)
+  (let* ((choice (completing-read
+                  "Choose Colab option: "
+                  '("test" "create" "dashboard") nil t))
+         (url (pcase choice
+                ("test" "https://colab.research.google.com/drive/1QMYE5y8SHYtr4E7gD93Yxq_MYIscFzGa") ;; ← change this to your real test Colab URL
+                ("create" "https://colab.research.google.com/#create=true")
+                ("dashboard" "https://colab.research.google.com/")
+                (_ (error "Unknown option: %s" choice)))))
+    (browse-url url)))
+
+;;;##autoload
+(defun git-clone-from-kill-ring ()
+  "Clone git URL in clipboard asynchronously and open in dired when finished."
+  (interactive)
+  (cl-assert (string-match-p "^\\(http\\|https\\|ssh\\)://" (current-kill 0)) nil "No URL in clipboard")
+  (let* ((url (current-kill 0))
+         (download-dir (expand-file-name "~/Downloads/"))
+         (project-dir (concat (file-name-as-directory download-dir)
+                              (file-name-base url)))
+         (default-directory download-dir)
+         (command (format "git clone %s" url))
+         (buffer (generate-new-buffer (format "*%s*" command)))
+         (proc))
+    (when (file-exists-p project-dir)
+      (if (y-or-n-p (format "%s exists. delete?" (file-name-base url)))
+          (delete-directory project-dir t)
+        (user-error "Bailed")))
+    (switch-to-buffer buffer)
+    (setq proc (start-process-shell-command (nth 0 (split-string command)) buffer command))
+    (with-current-buffer buffer
+      (setq default-directory download-dir)
+      (shell-command-save-pos-or-erase)
+      (require 'shell)
+      (shell-mode)
+      (view-mode +1))
+    (set-process-sentinel proc (lambda (process state)
+                                 (let ((output (with-current-buffer (process-buffer process)
+                                                 (buffer-string))))
+                                   (kill-buffer (process-buffer process))
+                                   (if (= (process-exit-status process) 0)
+                                       (progn
+                                         (message "finished: %s" command)
+                                         (dired project-dir))
+                                     (user-error (format "%s\n%s" command output))))))
+    (set-process-filter proc #'comint-output-filter)))

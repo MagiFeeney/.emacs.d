@@ -206,6 +206,7 @@
                           completion-category-defaults nil))))
 
 ;; Completion at point
+;; TODO: https://github.com/minad/cape/issues/116
 (use-package cape
   :ensure t
   :defer t

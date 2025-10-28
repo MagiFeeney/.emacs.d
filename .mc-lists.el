@@ -82,6 +82,7 @@
 	kill-sexp
 	mark-sexp
 	mark-word
+	markdown-cycle
 	mc--insert-letter-and-increase
 	mc/mark-all-in-region
 	meow-back-word
@@ -174,6 +175,7 @@
 	ivy-done
 	mark-page
 	mark-paragraph
+	markdown-outdent-or-delete
 	mc--insert-number-and-increase
 	meow-expand-0
 	meow-insert-exit

@@ -13,7 +13,9 @@
 (defvar-keymap scamx-utility-map
   :doc "utilities"
   "c" 'google-colab
-  "j" 'git-clone-from-kill-ring)
+  "j" 'git-clone-from-kill-ring
+  "p" 'org-publish-website
+  "s" 'save-codecogs-image)
 
 ;; define scamx X map
 (defvar scamx-X-keymap (make-sparse-keymap))

@@ -195,9 +195,7 @@ If isRenew is non-nil, it indicates that my-password already has a value."
     (with-current-buffer buffer
       (setq default-directory download-dir)
       (shell-command-save-pos-or-erase)
-      (require 'shell)
-      (shell-mode)
-      (view-mode +1))
+      (shell-mode))
     (set-process-sentinel proc (lambda (process state)
                                  (let ((output (with-current-buffer (process-buffer process)
                                                  (buffer-string))))
@@ -208,3 +206,27 @@ If isRenew is non-nil, it indicates that my-password already has a value."
                                          (dired project-dir))
                                      (user-error (format "%s\n%s" command output))))))
     (set-process-filter proc #'comint-output-filter)))
+
+;;;##autoload
+(defun org-publish-website ()
+  "Load the publish.el file and publish the taingram.org project."
+  (interactive)
+  (load-file "~/magifeeney.github.io/publish.el")
+  (org-publish-project "taingram.org"))
+
+;;;##autoload
+(defun save-codecogs-image ()
+  "Move ~/Downloads/CodeCogsEqn.png to a new location, preserving the .png suffix.
+If the file exists, prompt for a new folder and base name.
+If it doesn't exist, report 'not found' and stop."
+  (interactive)
+  (let ((source-file (expand-file-name "~/Downloads/CodeCogsEqn.png"))
+        (default-suffix ".png"))
+    (if (file-exists-p source-file)
+        (let* ((target-base (read-file-name "Save image as: "))
+               (target-file (concat (file-name-sans-extension target-base) default-suffix)))
+          (rename-file source-file target-file t)
+          (message "File moved to %s" target-file))
+      (message "File not found: %s" source-file))))
+
+

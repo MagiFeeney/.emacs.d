@@ -10,7 +10,10 @@
   :hook
   ((dired-mode . dired-hide-details-mode)
    (dired-mode . hl-line-mode))
+  :bind (:map dired-mode-map
+              ("+" . dired-create-dir-or-file))
   :config
+  (load-file "~/.emacs.d/setup/dired/function.el") ; useful functions
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
@@ -45,10 +48,13 @@
    '(("t" "TODO" entry (file+headline "~/Documents/Brain/Capture/notes.org" "Tasks")
       "* TODO %?\n  %i\n  %a")
      ("j" "Journal" entry (file+datetree "~/Documents/Brain/Capture/journal.org")
-      "* %?\nEntered on %U\n  %i\n  %a")))
+      "* %?\nEntered on %U\n  %i\n  %a")
+     ("p" "Prioritized" entry (file+headline "~/Documents/Brain/Capture/priority.org" "Papers")
+      "* TODO %?\n  %i\n  %a")))
   :bind (:map scamx-org-map
 	      (("a" . org-agenda)
 	       ("s" . org-capture)
+	       ("l" . org-capture-goto-last-stored)
 	       ("e" . #'my/org-insert-total-effort)))
   :config
   (setq org-edit-src-content-indentation 0)
@@ -63,8 +69,7 @@
   :custom
   (org-roam-directory (concat org-directory "/Roam"))
   :bind (:map scamx-org-map
-	      (("l" . org-roam-buffer-toggle)
-               ("f" . org-roam-node-find)
+	      (("f" . org-roam-node-find)
                ("i" . org-roam-node-insert)
                ("c" . org-roam-capture)
                ;; Dailies
@@ -99,12 +104,7 @@
   :config
   (setq denote-directory (concat org-directory "/Denote"))
 
-  (load-file "~/.emacs.d/setup/denote/function.el") ; useful functions  
-  
-  ;; Automatically rename Denote buffers when opening them so that
-  ;; instead of their long file name they have, for example, a literal
-  ;; "[D]" followed by the file's title.  Read the doc string of
-  ;; `denote-rename-buffer-format' for how to modify this.
+  (load-file "~/.emacs.d/setup/denote/function.el") ; useful functions
   (denote-rename-buffer-mode 1))
 
 ;; LaTeX

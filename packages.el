@@ -57,7 +57,8 @@
 	       ("l" . org-capture-goto-last-stored)
 	       ("e" . #'my/org-insert-total-effort)))
   :config
-  (setq org-edit-src-content-indentation 0)
+  (setq org-edit-src-content-indentation 0
+	org-blank-before-new-entry '((heading . t) (plain-list-item . auto))) ;newline when creating a TODO
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   ;; (add-hook 'org-mode-hook #'scamx-motion-org-mode)
   )

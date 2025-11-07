@@ -56,6 +56,10 @@
    ((meow-isearch-mode-p)
     (when overwrite-mode
       (overwrite-mode -1))
+    (when (get-buffer "*Occur*")
+      (other-window 1)
+      (delete-window)
+      (kill-buffer "*Occur*"))
     (isearch-done)
     (meow--switch-state 'normal))))
 

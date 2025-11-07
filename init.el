@@ -29,9 +29,10 @@
  '(ansi-color-names-vector
    ["#4F4F4F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3"
     "#6F6F6F"])
- '(custom-enabled-themes '(gruvbox-dark-hard))
+ '(custom-enabled-themes '(doric-oak))
  '(custom-safe-themes
-   '("8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
+   '("41ccdeb98c62fabdfe6148f17188b03de47ff9f8fee266c0a5f8bc239f79f204"
+     "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
      "4641b3ffceb32d3b79d1c178b2a6d73094fe59122d354c0d00ef0b671b4788d7"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
@@ -172,8 +173,8 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex cape consult corfu corfu-prescient denote docker
-		doom-themes doric-themes ebib expand-region
+   '(ace-window auctex cape consult corfu corfu-prescient denote dirvish
+		docker doom-themes doric-themes ebib expand-region
 		gruvbox-theme ivy-bibtex magit magit-todos marginalia
 		markdown-mode meow multiple-cursors orderless org-ref
 		org-roam ox-rss pdf-tools tramp vertico vterm

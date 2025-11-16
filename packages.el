@@ -14,12 +14,56 @@
               ("+" . dired-create-dir-or-file))
   :config
   (load-file "~/.emacs.d/setup/dired/function.el") ; useful functions
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --group-directories-first --no-group")  
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
   (setq delete-by-moving-to-trash t)
   (setq dired-dwim-target t)
   (setq dired-kill-when-opening-new-dired-buffer t))
+
+(use-package dirvish
+  :ensure t
+  :defer t
+  :init
+  (dirvish-override-dired-mode)
+  :custom
+  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
+   '(("h" "~/"                          "Home")
+     ("d" "~/Downloads/"                "Downloads")
+     ("r" "~/Research/"                "Research")
+     ("m" "/mnt/"                       "Drives")
+     ("s" "/ssh:ma-j@xlogin1.comp.nus.edu.sg:"       "SSH server")
+     ("w" "/media/magifeeney/Whale/"       "Driver")
+     ("e" "/sudo:root@localhost:/etc"   "Modify program settings")
+     ("t" "~/.local/share/Trash/files/" "TrashCan")))
+  :config
+  ;; (dirvish-peek-mode)             ; Preview files in minibuffer
+  (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
+  (setq dirvish-use-mode-line nil)
+  ;; open large directory (over 20000 files) asynchronously with `fd' command
+  (setq dirvish-large-directory-threshold 20000)
+  :bind ; Bind `dirvish-fd|dirvish-side|dirvish-dwim' as you see fit
+  (("C-c f" . dirvish)
+   :map dirvish-mode-map               ; Dirvish inherits `dired-mode-map'
+   (";"   . dired-up-directory)        ; So you can adjust `dired' bindings here
+   ("?"   . dirvish-dispatch)          ; [?] a helpful cheatsheet
+   ("a"   . dirvish-setup-menu)        ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
+   ("f"   . dirvish-file-info-menu)    ; [f]ile info
+   ("o"   . dirvish-quick-access)      ; [o]pen `dirvish-quick-access-entries'
+   ("s"   . dirvish-quicksort)         ; [s]ort flie list
+   ("r"   . dirvish-history-jump)      ; [r]ecent visited
+   ("l"   . dirvish-ls-switches-menu)  ; [l]s command flags
+   ("v"   . dirvish-vc-menu)           ; [v]ersion control commands
+   ("*"   . dirvish-mark-menu)
+   ("y"   . dirvish-yank-menu)
+   ("N"   . dirvish-narrow)
+   ("^"   . dirvish-history-last)
+   ("TAB" . dirvish-subtree-toggle)
+   ("M-f" . dirvish-history-go-forward)
+   ("M-b" . dirvish-history-go-backward)
+   ("M-e" . dirvish-emerge-menu)))
 
 ;; mc
 (use-package multiple-cursors
@@ -38,9 +82,14 @@
 
 ;; global org directory
 (setq org-directory (file-truename "~/Documents/Brain"))
+
+;; org mode setup
 (use-package org
   :ensure t
   :defer t
+  :hook
+  ((org-mode . (lambda () (setq truncate-lines nil)))
+   (org-mode . org-modern-mode))
   :custom
   (org-agenda-files (concat org-directory "/agenda.org"))
   (org-default-notes-file (concat org-directory "/Capture"))
@@ -58,8 +107,19 @@
 	       ("e" . #'my/org-insert-total-effort)))
   :config
   (setq org-edit-src-content-indentation 0
-	org-blank-before-new-entry '((heading . t) (plain-list-item . auto))) ;newline when creating a TODO
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+	org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+	org-auto-align-tags nil
+	org-tags-column 0
+	org-catch-invisible-edits 'show-and-error
+	org-special-ctrl-a/e t
+	org-insert-heading-respect-content t
+
+	;; Org styling, hide markup etc.
+	org-hide-emphasis-markers t
+	org-pretty-entities t
+	org-agenda-tags-column 0
+	org-ellipsis "…") ;newline when creating a TODO
+
   ;; (add-hook 'org-mode-hook #'scamx-motion-org-mode)
   )
 
@@ -184,3 +244,39 @@
   :mode ("README\\.md\\'" . gfm-mode)
   :bind (:map markdown-mode-map
          ("C-c C-e" . markdown-do)))
+
+(use-package abbrev
+  :ensure nil
+  :custom
+  (save-abbrevs nil)
+  (abbrev-file-name "~/.emacs.d/snippets/abbrev.el")  
+  :config
+  (defun emacs-solo/abbrev--replace-placeholders ()
+	"Replace placeholders ###1###, ###2###, ### with minibuffer input.
+If ###@### is found, remove it and place point there at the end."
+	(let ((cursor-pos nil))
+	  (save-excursion
+		(goto-char (point-min))
+		(let ((loop 0)
+			  (values (make-hash-table :test 'equal)))
+		  (while (re-search-forward "###\\([0-9]+\\|@\\)###" nil t)
+			(setq loop (1+ loop))
+			(let* ((index (match-string 1))
+				   (start (match-beginning 0))
+				   (end (match-end 0)))
+			  (cond
+			   ((string= index "@")
+				(setq cursor-pos start)
+				(delete-region start end))
+			   (t
+				(let* ((key (format "###%s###" index))
+					   (val (or (gethash key values)
+								(let ((input (read-string (format "Value for %s: " key))))
+								  (puthash key input values)
+								  input))))
+				  (goto-char start)
+				  (delete-region start end)
+				  (insert val)
+				  (goto-char (+ start (length val))))))))))
+	  (when cursor-pos
+		(goto-char cursor-pos)))))

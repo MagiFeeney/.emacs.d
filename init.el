@@ -19,6 +19,15 @@
 (defun display-startup-echo-area-message ()
   (message ""))
 
+;; Add frame borders and window dividers
+(modify-all-frames-parameters
+ '((internal-border-width . 40)))
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -31,7 +40,8 @@
     "#6F6F6F"])
  '(custom-enabled-themes '(doric-oak))
  '(custom-safe-themes
-   '("41ccdeb98c62fabdfe6148f17188b03de47ff9f8fee266c0a5f8bc239f79f204"
+   '("b48dd074533772efd0c7e89c60891b476a5aa0908b084ee4f421526c8516c97d"
+     "41ccdeb98c62fabdfe6148f17188b03de47ff9f8fee266c0a5f8bc239f79f204"
      "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
      "4641b3ffceb32d3b79d1c178b2a6d73094fe59122d354c0d00ef0b671b4788d7"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
@@ -174,9 +184,9 @@
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
    '(ace-window auctex cape consult corfu corfu-prescient denote dirvish
-		docker doom-themes doric-themes ebib expand-region
-		gruvbox-theme ivy-bibtex magit magit-todos marginalia
-		markdown-mode meow multiple-cursors orderless org-ref
+		docker doom-themes doric-themes ebib gruvbox-theme
+		ivy-bibtex magit magit-todos marginalia markdown-mode
+		meow multiple-cursors orderless org-modern org-ref
 		org-roam ox-rss pdf-tools tramp vertico vterm
 		yasnippet-capf yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
@@ -220,4 +230,5 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 180 :width normal))))
  '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
- '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d")))))
+ '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
+ '(window-divider ((t (:foreground "#b1bf88")))))

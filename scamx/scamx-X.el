@@ -44,6 +44,7 @@
 (define-key scamx-X-keymap (kbd ".") 'eval-last-sexp)
 (define-key scamx-X-keymap (kbd ":") 'eval-expression)
 (define-key scamx-X-keymap (kbd "=") 'text-scale-adjust)
+(define-key scamx-X-keymap (kbd "RET") 'dired)
 (define-key scamx-X-keymap (kbd "o") scamx-org-map)
 (define-key scamx-X-keymap (kbd "d") scamx-denote-map)
 (define-key scamx-X-keymap (kbd "m") scamx-set-mode-map)

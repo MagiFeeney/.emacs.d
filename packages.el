@@ -15,7 +15,7 @@
   :config
   (load-file "~/.emacs.d/setup/dired/function.el") ; useful functions
   (setq dired-listing-switches
-        "-l --almost-all --human-readable --group-directories-first --no-group")  
+        "-l --almost-all --human-readable --group-directories-first --no-group")
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
@@ -234,7 +234,14 @@
   (("C-c d s" . (lambda () (interactive) (shell-command "systemctl --user start docker-desktop")))
    ("C-c d x" . (lambda () (interactive) (shell-command "systemctl --user stop docker-desktop")))))
 
+(use-package magit
+  :ensure t
+  :defer t
+  :bind (:map magit-mode-map
+	      ("q" . magit-kill-this-buffer)))
+
 (use-package magit-todos
+  :ensure t
   :after magit
   :config (magit-todos-mode 1))
 
@@ -243,13 +250,13 @@
   :defer t
   :mode ("README\\.md\\'" . gfm-mode)
   :bind (:map markdown-mode-map
-         ("C-c C-e" . markdown-do)))
+              ("C-c C-e" . markdown-do)))
 
 (use-package abbrev
   :ensure nil
   :custom
   (save-abbrevs nil)
-  (abbrev-file-name "~/.emacs.d/snippets/abbrev.el")  
+  (abbrev-file-name "~/.emacs.d/snippets/abbrev.el")
   :config
   (defun emacs-solo/abbrev--replace-placeholders ()
 	"Replace placeholders ###1###, ###2###, ### with minibuffer input.
@@ -280,3 +287,15 @@ If ###@### is found, remove it and place point there at the end."
 				  (goto-char (+ start (length val))))))))))
 	  (when cursor-pos
 		(goto-char cursor-pos)))))
+
+(use-package dumb-jump
+  :ensure t
+  :defer t
+  :hook
+  ((prog-mode . dumb-jump-mode))
+  :custom
+  (dumb-jump-prefer-searcher 'rg)
+  (dumb-jump-force-searcher 'rg)
+  (dumb-jump-aggressive nil)
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))

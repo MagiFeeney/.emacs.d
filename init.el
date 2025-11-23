@@ -184,11 +184,11 @@
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
    '(ace-window auctex cape consult corfu corfu-prescient denote dirvish
-		docker doom-themes doric-themes ebib gruvbox-theme
-		ivy-bibtex magit magit-todos marginalia markdown-mode
-		meow multiple-cursors orderless org-modern org-ref
-		org-roam ox-rss pdf-tools tramp vertico vterm
-		yasnippet-capf yasnippet-snippets))
+		docker doom-themes doric-themes dumb-jump ebib
+		gruvbox-theme ivy-bibtex magit magit-todos marginalia
+		markdown-mode meow multiple-cursors orderless
+		org-modern org-ref org-roam ox-rss pdf-tools tramp
+		vertico vterm yasnippet-capf yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
  '(send-mail-function 'mailclient-send-it)

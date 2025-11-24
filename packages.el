@@ -294,8 +294,13 @@ If ###@### is found, remove it and place point there at the end."
   :hook
   ((prog-mode . dumb-jump-mode))
   :custom
-  (dumb-jump-prefer-searcher 'rg)
-  (dumb-jump-force-searcher 'rg)
   (dumb-jump-aggressive nil)
   :config
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+  (defun dumb-jump-check-searcher ()
+    (when (and (not (file-remote-p default-directory))
+               (executable-find "rg"))
+      (setq-local dumb-jump-prefer-searcher 'rg
+		  dumb-jump-force-searcher 'rg)))
+
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (add-hook 'dumb-jump-mode-hook #'dumb-jump-check-searcher))

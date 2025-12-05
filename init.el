@@ -38,7 +38,7 @@
  '(ansi-color-names-vector
    ["#4F4F4F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3"
     "#6F6F6F"])
- '(custom-enabled-themes '(doric-oak))
+ '(custom-enabled-themes '(doom-tokyo-night))
  '(custom-safe-themes
    '("b48dd074533772efd0c7e89c60891b476a5aa0908b084ee4f421526c8516c97d"
      "41ccdeb98c62fabdfe6148f17188b03de47ff9f8fee266c0a5f8bc239f79f204"
@@ -195,6 +195,7 @@
  '(tool-bar-mode nil))
 
 ;; load custom files
+(load-file "~/.emacs.d/window.el")
 (load-file "~/.emacs.d/theme.el")
 (load-file "~/.emacs.d/packages.el")
 (load-file "~/.emacs.d/completion.el")
@@ -206,6 +207,33 @@
   :config
   (electric-pair-mode)
   (delete-selection-mode))
+
+(with-eval-after-load 'scamx
+  (setq-default mode-line-format
+		'("%e"                       ; Error messages
+                  mode-line-front-space
+                  ;; Buffer name		
+                  (:eval (propertize "%b" 'face 'mode-line-buffer-id))
+                  "  "
+		  
+                  ;; Modified flag		
+                  (:eval (if (buffer-modified-p)
+			     (propertize "[MODIFIED]"
+					 'face '(:foreground "red" :weight bold)))) ; Dynamic modification status
+                  "  "
+
+                  ;; Proportional line indicator
+		  (:eval (format "%s %s/%d"
+				 (my/line-progress-indicator)
+				 (format-mode-line "%l")
+				 (line-number-at-pos (point-max))
+				 ))
+		  "  "
+		  
+                  ;; Meow modal indicator
+		  (:eval (my/meow-indicator-colored))
+                  mode-line-end-spaces))
+)
 
 ;; Always use "y" for "yes"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -223,12 +251,3 @@
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 180 :width normal))))
- '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
- '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
- '(window-divider ((t (:foreground "#b1bf88")))))

@@ -32,12 +32,9 @@
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    '(("h" "~/"                          "Home")
      ("d" "~/Downloads/"                "Downloads")
-     ("r" "~/Research/"                "Research")
-     ("m" "/mnt/"                       "Drives")
+     ("r" "~/Research/"                 "Research")
      ("s" "/ssh:ma-j@xlogin1.comp.nus.edu.sg:"       "SSH server")
-     ("w" "/media/magifeeney/Whale/"       "Driver")
-     ("e" "/sudo:root@localhost:/etc"   "Modify program settings")
-     ("t" "~/.local/share/Trash/files/" "TrashCan")))
+     ("w" "/media/magifeeney/Whale/"       "Driver")))
   :config
   ;; (dirvish-peek-mode)             ; Preview files in minibuffer
   (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
@@ -55,7 +52,6 @@
    ("s"   . dirvish-quicksort)         ; [s]ort flie list
    ("r"   . dirvish-history-jump)      ; [r]ecent visited
    ("l"   . dirvish-ls-switches-menu)  ; [l]s command flags
-   ("v"   . dirvish-vc-menu)           ; [v]ersion control commands
    ("*"   . dirvish-mark-menu)
    ("y"   . dirvish-yank-menu)
    ("N"   . dirvish-narrow)
@@ -63,7 +59,10 @@
    ("TAB" . dirvish-subtree-toggle)
    ("M-f" . dirvish-history-go-forward)
    ("M-b" . dirvish-history-go-backward)
-   ("M-e" . dirvish-emerge-menu)))
+   ("M-e" . dirvish-emerge-menu)
+   ("v"   . vterm)
+   ("/"   . scamx-tramp-find-file)
+   ("z"   . magit-status)))
 
 ;; mc
 (use-package multiple-cursors

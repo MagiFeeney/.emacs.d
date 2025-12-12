@@ -10,3 +10,17 @@
     (if (file-name-extension path)
         (dired-create-empty-file path)
       (dired-create-directory path))))
+
+;;;###autoload
+(defun dired-goto-dir-or-file (path)
+  "Open PATH in Dired.
+   If PATH is a directory, open it.
+   If PATH is a file, open its parent directory and move point to the file."
+  (interactive "fGoto (dir or file): ")
+  (let* ((expanded (expand-file-name path))
+         (dir (if (file-directory-p expanded)
+                  expanded
+                (file-name-directory expanded))))
+    (dired dir)
+    (when (file-exists-p expanded)
+      (dired-goto-file expanded))))

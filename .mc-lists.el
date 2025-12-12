@@ -168,6 +168,7 @@
 	backward-page
 	counsel-M-x
 	dired-find-file
+	find-file
 	goto-line
 	isearch-abort
 	isearch-delete-char

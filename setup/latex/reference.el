@@ -63,10 +63,12 @@
   (defun do.refs/ebib-import-from-clipboard ()
     "Attempt to import the contents in the kill ring/clipboard into `ebib'."
     (interactive)
-    (with-temp-buffer
+    (with-temp-buffer      
       (yank)
       (ebib-import)
-      (call-interactively #'ebib)))
+      (call-interactively #'ebib)
+      ;; (ebib-save-current-database)
+      ))
 
   ;; another convenience function to add the most recently downloaded PDF file
   ;; from the ~/Downloads folder to the current entry

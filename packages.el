@@ -11,7 +11,8 @@
   ((dired-mode . dired-hide-details-mode)
    (dired-mode . hl-line-mode))
   :bind (:map dired-mode-map
-              ("+" . dired-create-dir-or-file))
+              ("+" . dired-create-dir-or-file)
+	      ("j" . dired-goto-dir-or-file))
   :config
   (load-file "~/.emacs.d/setup/dired/function.el") ; useful functions
   (setq dired-listing-switches
@@ -303,3 +304,9 @@ If ###@### is found, remove it and place point there at the end."
 
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (add-hook 'dumb-jump-mode-hook #'dumb-jump-check-searcher))
+
+(use-package tramp-hlo
+  :ensure t
+  :after tramp
+  :config
+  (tramp-hlo-setup))

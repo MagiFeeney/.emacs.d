@@ -15,7 +15,8 @@
   "c" 'google-colab
   "j" 'git-clone-from-kill-ring
   "p" 'org-publish-website
-  "s" 'save-codecogs-image)
+  "s" 'save-codecogs-image
+  "b" 'do.refs/ebib-import-from-clipboard)
 
 ;; define scamx X map
 (defvar scamx-X-keymap (make-sparse-keymap))

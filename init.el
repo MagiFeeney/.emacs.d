@@ -19,15 +19,6 @@
 (defun display-startup-echo-area-message ()
   (message ""))
 
-;; Add frame borders and window dividers
-(modify-all-frames-parameters
- '((internal-border-width . 40)))
-(dolist (face '(window-divider
-                window-divider-first-pixel
-                window-divider-last-pixel))
-  (face-spec-reset-face face)
-  (set-face-foreground face (face-attribute 'default :background)))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,9 +29,10 @@
  '(ansi-color-names-vector
    ["#4F4F4F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3"
     "#6F6F6F"])
- '(custom-enabled-themes '(doom-tokyo-night))
  '(custom-safe-themes
-   '("b48dd074533772efd0c7e89c60891b476a5aa0908b084ee4f421526c8516c97d"
+   '("43c23cd70b2ce81a1b48dc3973ff1a7c835f3f6ee49d3070236c2f068c2a819e"
+     "e1df746a4fa8ab920aafb96c39cd0ab0f1bac558eff34532f453bd32c687b9d6"
+     "b48dd074533772efd0c7e89c60891b476a5aa0908b084ee4f421526c8516c97d"
      "41ccdeb98c62fabdfe6148f17188b03de47ff9f8fee266c0a5f8bc239f79f204"
      "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
      "4641b3ffceb32d3b79d1c178b2a6d73094fe59122d354c0d00ef0b671b4788d7"
@@ -183,13 +175,12 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex cape consult corfu corfu-prescient denote dirvish
-		docker doom-themes doric-themes dumb-jump ebib
-		gruvbox-theme ivy-bibtex magit magit-todos marginalia
-		markdown-mode meow multiple-cursors orderless
-		org-modern org-ref org-roam ox-rss pdf-tools tramp
-		tramp-hlo transient vertico vterm yasnippet-capf
-		yasnippet-snippets))
+   '(ace-window auctex cape consult corfu corfu-prescient denote docker
+		doom-themes doric-themes dumb-jump ebib gruvbox-theme
+		ivy-bibtex magit magit-todos marginalia markdown-mode
+		meow multiple-cursors orderless org-ref org-roam
+		ox-rss pdf-tools tramp tramp-hlo transient vertico
+		vterm yasnippet-capf yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
  '(send-mail-function 'mailclient-send-it)
@@ -257,6 +248,9 @@
 
 ;; only display line number to the programable file
 ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
 
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)

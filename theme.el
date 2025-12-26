@@ -1,3 +1,59 @@
+
+(use-package modus-themes
+  :ensure nil
+  :demand t
+  :init (require-theme 'modus-themes)
+  :custom-face
+  (minibuffer-nonselected ((t (:inverse-video t))))
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-mixed-fonts t)
+
+  (modus-themes-headings
+   '((1 . (variable-pitch 1.5))
+     (2 . (1.3))
+     (agenda-date . (regular 1.1))
+     (agenda-structure . (variable-pitch light 1.3))
+     (t . (1.1))))
+
+  (modus-vivendi-palette-overrides
+   '(
+     (bg-main        "#000000")
+     (bg-dim         "#0a0f0a")
+     (bg-active      "#111c17")
+     (bg-inactive    "#1b2a24")
+
+     (fg-main        "#ffffff")
+     (fg-dim         "#b4aeae")
+     (fg-heading-1   "#ab82ff")
+     (fg-heading-2   "#fab387")
+
+     (prose-tag      "#ffe")
+     (mail-subject   "#6ae4b9")
+
+     (cursor "#5fd7af") (bg-completion "#248f6c") (bg-hl-line "#142f2b") ;;seagreen
+
+     (bg-region bg-completion)
+     (fg-region unspecified)
+
+     (bg-tab-bar     bg-main)
+     (bg-tab-current bg-active)
+     (bg-tab-other   bg-dim)
+
+     (bg-mode-line-active     bg-dim)
+     (bg-line-number-active   bg-main)
+     (bg-line-number-inactive bg-main)
+
+     (fg-line-number-active   fg-dim)
+     (fg-line-number-inactive border)
+
+     (border-mode-line-active   unspecified)
+     (border-mode-line-inactive unspecified)
+     (fringe unspecified)))
+  :config
+  (load-theme 'modus-vivendi t))
+
 (defface meow-normal-face
   '((t (:foreground "#89b4fa" :weight bold)))  ;; blue
   "Face for Meow NORMAL mode.")
@@ -22,7 +78,6 @@
   '((t (:foreground "#f38ba8" :weight bold)))  ;; red
   "Face for Meow MOTION mode.")
 
-
 (defun my/meow-state-face ()
   (pcase (meow--current-state)
     ('normal 'meow-normal-face)
@@ -30,7 +85,7 @@
     ('convert 'meow-convert-face)
     ('visit 'meow-visit-face)
     ('isearch 'meow-isearch-face)
-    ('motion 'meow-motion-face)    
+    ('motion 'meow-motion-face)
     (_ 'mode-line)))   ;; fallback
 
 (defun my/meow-indicator-colored ()

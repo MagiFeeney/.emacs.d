@@ -11,59 +11,23 @@
   ((dired-mode . dired-hide-details-mode)
    (dired-mode . hl-line-mode))
   :bind (:map dired-mode-map
+              (";" . dired-up-directory)
               ("+" . dired-create-dir-or-file)
-	      ("j" . dired-goto-dir-or-file))
+	      ("j" . dired-goto-dir-or-file)
+	      ("v" . vterm)
+	      ("/" . scamx-tramp-find-file)
+	      ("z" . magit-status))
+  :custom
+  (dired-free-space nil)
+  (dired-listing-switches "-l --almost-all --human-readable --group-directories-first --no-group")
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (delete-by-moving-to-trash t)
+  (dired-dwim-target t)
+  (dired-kill-when-opening-new-dired-buffer t)
   :config
   (load-file "~/.emacs.d/setup/dired/function.el") ; useful functions
-  (setq dired-listing-switches
-        "-l --almost-all --human-readable --group-directories-first --no-group")
-  (put 'dired-find-alternate-file 'disabled nil)
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-dwim-target t)
-  (setq dired-kill-when-opening-new-dired-buffer t))
-
-(use-package dirvish
-  :ensure t
-  :defer t
-  :init
-  (dirvish-override-dired-mode)
-  :custom
-  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
-   '(("h" "~/"                          "Home")
-     ("d" "~/Downloads/"                "Downloads")
-     ("r" "~/Research/"                 "Research")
-     ("s" "/ssh:ma-j@xlogin1.comp.nus.edu.sg:"       "SSH server")
-     ("w" "/media/magifeeney/Whale/"       "Driver")))
-  :config
-  ;; (dirvish-peek-mode)             ; Preview files in minibuffer
-  (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
-  (setq dirvish-use-mode-line nil)
-  ;; open large directory (over 20000 files) asynchronously with `fd' command
-  (setq dirvish-large-directory-threshold 20000)
-  :bind ; Bind `dirvish-fd|dirvish-side|dirvish-dwim' as you see fit
-  (("C-c f" . dirvish)
-   :map dirvish-mode-map               ; Dirvish inherits `dired-mode-map'
-   (";"   . dired-up-directory)        ; So you can adjust `dired' bindings here
-   ("?"   . dirvish-dispatch)          ; [?] a helpful cheatsheet
-   ("a"   . dirvish-setup-menu)        ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
-   ("f"   . dirvish-file-info-menu)    ; [f]ile info
-   ("o"   . dirvish-quick-access)      ; [o]pen `dirvish-quick-access-entries'
-   ("s"   . dirvish-quicksort)         ; [s]ort flie list
-   ("r"   . dirvish-history-jump)      ; [r]ecent visited
-   ("l"   . dirvish-ls-switches-menu)  ; [l]s command flags
-   ("*"   . dirvish-mark-menu)
-   ("y"   . dirvish-yank-menu)
-   ("N"   . dirvish-narrow)
-   ("^"   . dirvish-history-last)
-   ("TAB" . dirvish-subtree-toggle)
-   ("M-f" . dirvish-history-go-forward)
-   ("M-b" . dirvish-history-go-backward)
-   ("M-e" . dirvish-emerge-menu)
-   ("v"   . vterm)
-   ("/"   . scamx-tramp-find-file)
-   ("z"   . magit-status)))
+  (put 'dired-find-alternate-file 'disabled nil))
 
 ;; mc
 (use-package multiple-cursors
@@ -88,8 +52,7 @@
   :ensure t
   :defer t
   :hook
-  ((org-mode . (lambda () (setq truncate-lines nil)))
-   (org-mode . org-modern-mode))
+  ((org-mode . (lambda () (setq truncate-lines nil))))
   :custom
   (org-agenda-files (concat org-directory "/agenda.org"))
   (org-default-notes-file (concat org-directory "/Capture"))

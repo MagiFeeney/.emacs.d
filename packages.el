@@ -9,6 +9,7 @@
   :commands (dired)
   :hook
   ((dired-mode . dired-hide-details-mode)
+   (dired-mode . auto-revert-mode)
    (dired-mode . hl-line-mode))
   :bind (:map dired-mode-map
               (";" . dired-up-directory)

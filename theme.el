@@ -11,10 +11,10 @@
   (modus-themes-mixed-fonts t)
 
   (modus-themes-headings
-   '((1 . (variable-pitch 1.5))
-     (2 . (1.3))
+   '((1 . (ultrabold 1.5))
+     (2 . (ultrabold 1.3))
      (agenda-date . (regular 1.1))
-     (agenda-structure . (variable-pitch light 1.3))
+     (agenda-structure . (light 1.3))
      (t . (1.1))))
 
   (modus-vivendi-palette-overrides

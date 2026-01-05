@@ -201,8 +201,6 @@
   (delete-selection-mode))
 
 (with-eval-after-load 'scamx
-  (add-hook 'org-clock-in-hook #'force-mode-line-update)
-  (add-hook 'org-clock-out-hook #'force-mode-line-update)
   (setq-default mode-line-format
 		'("%e"                       ; Error messages
                   mode-line-front-space
@@ -231,6 +229,15 @@
 		  ;; Org mode countdown
 		  global-mode-string
 		  "  "
+
+		  ;; major mode name
+                  (:eval
+                   (propertize " " 'display
+                               `((space :align-to (- right
+                                                     ,(string-width (format-mode-line mode-name))
+                                                     3)))))
+                  mode-name
+                  "  "
 
                   mode-line-end-spaces)
 		)

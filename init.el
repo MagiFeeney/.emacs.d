@@ -178,16 +178,17 @@
    '(ace-window auctex cape consult corfu corfu-prescient denote docker
 		doom-themes doric-themes dumb-jump ebib gruvbox-theme
 		ivy-bibtex magit magit-todos marginalia markdown-mode
-		meow multiple-cursors orderless org-ref org-roam
-		ox-rss pdf-tools tramp tramp-hlo transient vertico
-		vterm yasnippet-capf yasnippet-snippets))
+		meow multiple-cursors olivetti orderless org-ref
+		org-roam ox-rss pdf-tools system-packages tramp
+		tramp-hlo transient vertico vterm yasnippet-capf
+		yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
  '(send-mail-function 'mailclient-send-it)
  '(tool-bar-mode nil))
 
 ;; load custom files
-(load-file "~/.emacs.d/window.el")
+;; (load-file "~/.emacs.d/window.el")
 (load-file "~/.emacs.d/theme.el")
 (load-file "~/.emacs.d/packages.el")
 (load-file "~/.emacs.d/completion.el")
@@ -253,8 +254,7 @@
 ;; python from anaconda
 (setq python-shell-interpreter "~/miniconda3/bin/python3")
 
-;; only display line number to the programable file
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; automatically remove trailing white space every time file is saved
 (add-hook 'prog-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))

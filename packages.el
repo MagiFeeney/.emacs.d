@@ -269,8 +269,22 @@ If ###@### is found, remove it and place point there at the end."
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (add-hook 'dumb-jump-mode-hook #'dumb-jump-check-searcher))
 
+;; Speedup tramp
 (use-package tramp-hlo
   :ensure t
   :after tramp
   :config
   (tramp-hlo-setup))
+
+;; Center screen
+(use-package olivetti
+  :ensure t
+  :hook ((text-mode . olivetti-mode)
+	 (prog-mode . olivetti-mode)
+	 (dired-mode . olivetti-mode))
+  :init
+  (fringe-mode 0)
+  :config
+  (setq olivetti-body-width 100)
+  (setq olivetti-minimum-body-width 80)
+  (setq olivetti-style 'variable))

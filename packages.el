@@ -165,6 +165,7 @@
   :ensure t
   :defer t
   :mode ("\\.pdf\\'" . pdf-view-mode)
+  :hook (pdf-view-mode . delete-other-windows)
   :config
   (pdf-tools-install :no-query))
 
@@ -281,7 +282,8 @@ If ###@### is found, remove it and place point there at the end."
   :ensure t
   :hook ((text-mode . olivetti-mode)
 	 (prog-mode . olivetti-mode)
-	 (dired-mode . olivetti-mode))
+	 (dired-mode . olivetti-mode)
+	 (pdf-view-mode . olivetti-mode))
   :init
   (fringe-mode 0)
   :config

@@ -178,9 +178,9 @@
    '(ace-window auctex cape consult corfu corfu-prescient denote docker
 		doom-themes doric-themes dumb-jump ebib gruvbox-theme
 		ivy-bibtex magit magit-todos marginalia markdown-mode
-		meow multiple-cursors olivetti orderless org-ref
-		org-roam ox-rss pdf-tools system-packages tramp
-		tramp-hlo transient vertico vterm yasnippet-capf
+		meow multiple-cursors olivetti orderless org-modern
+		org-ref org-roam ox-rss pdf-tools system-packages
+		tramp tramp-hlo transient vertico vterm yasnippet-capf
 		yasnippet-snippets))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
@@ -262,12 +262,3 @@
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 180 :width normal))))
- '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
- '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
- '(window-divider ((t (:foreground "#b1bf88")))))

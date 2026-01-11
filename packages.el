@@ -53,7 +53,8 @@
   :ensure t
   :defer t
   :hook
-  ((org-mode . (lambda () (setq truncate-lines nil))))
+  ((org-mode . (lambda () (setq truncate-lines nil)))
+   (org-mode . variable-pitch-mode))
   :custom
   (org-agenda-files (concat org-directory "/agenda.org"))
   (org-default-notes-file (concat org-directory "/Capture"))
@@ -290,3 +291,15 @@ If ###@### is found, remove it and place point there at the end."
   (setq olivetti-body-width 100)
   (setq olivetti-minimum-body-width 80)
   (setq olivetti-style 'variable))
+
+;; Beautifying org mode
+(use-package org-modern
+  :ensure t
+  :defer t
+  :hook (org-mode . org-modern-mode)
+  :custom
+  (org-modern-star '("●" "○" "•" "◦"))
+  (org-modern-list '((?- . "❯")
+                     (?+ . "➤")
+                     (?* . "➥")))
+  (org-modern-todo nil))

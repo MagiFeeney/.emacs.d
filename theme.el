@@ -106,6 +106,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 180 :width normal))))
+ '(fixed-pitch ((t (:family "Fira Code Retina" :height 160))))
  '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
  '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
+ '(variable-pitch ((t (:family "ETBembo" :height 180 :weight thin))))
  '(window-divider ((t (:foreground "#b1bf88")))))

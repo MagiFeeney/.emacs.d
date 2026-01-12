@@ -166,9 +166,16 @@
   :ensure t
   :defer t
   :mode ("\\.pdf\\'" . pdf-view-mode)
-  :hook (pdf-view-mode . delete-other-windows)
+  ;; :hook
+  ;; (pdf-view-mode . delete-other-windows)
+  :bind (:map pdf-view-mode-map
+	      ("[" . pdf-view-previous-page-command)
+	      ("]" . pdf-view-next-page-command))
   :config
-  (pdf-tools-install :no-query))
+  (pdf-tools-install :no-query)
+  (add-hook 'pdf-view-after-change-page-hook #'delete-other-windows)
+  ;; (add-hook 'pdf-view-after-change-page-hook #'pdf-view-fit-height-to-window)
+  )
 
 (use-package yasnippet
   :ensure t
@@ -284,7 +291,8 @@ If ###@### is found, remove it and place point there at the end."
   :hook ((text-mode . olivetti-mode)
 	 (prog-mode . olivetti-mode)
 	 (dired-mode . olivetti-mode)
-	 (pdf-view-mode . olivetti-mode))
+	 ;; (pdf-view-mode . olivetti-mode)
+	 )
   :init
   (fringe-mode 0)
   :config
@@ -303,3 +311,10 @@ If ###@### is found, remove it and place point there at the end."
                      (?+ . "➤")
                      (?* . "➥")))
   (org-modern-todo nil))
+
+;; Better keybindings for indentation
+(use-package indent
+  :ensure nil
+  :bind (:map indent-rigidly-map
+              ("b" . indent-rigidly-left)
+              ("f" . indent-rigidly-right)))

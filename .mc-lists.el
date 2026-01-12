@@ -33,6 +33,7 @@
 	backward-kill-sexp
 	backward-sexp
 	backward-up-list
+	beginning-of-visual-line
 	c-electric-paren
 	c-electric-semi&comma
 	c-indent-line-or-region
@@ -51,6 +52,7 @@
 	duplicate-line
 	electric-newline-and-maybe-indent
 	electric-pair-delete-pair
+	end-of-visual-line
 	er/mark-inside-pairs
 	er/mark-outside-pairs
 	ess-eval-region-or-line-visibly-and-step
@@ -151,6 +153,9 @@
 	scamx-kill-word
 	scamx-mark-inside-pairs
 	scamx-mark-outside-pairs
+	scamx-mc-activate-cursors
+	scamx-mc-mark-next
+	scamx-space-command
 	sgml-slash
 	split-line
 	transpose-sexps

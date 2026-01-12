@@ -206,4 +206,31 @@ the deleted text (similar to `kill-region`)."
   (backward-up-list arg (point) (point))
   (mark-sexp))
 
+(autoload 'hi-lock--regexps-at-point "hi-lock" nil t)
+
+;;;###autoload
+(defun scamx-space-command ()
+  "Set mark on single space, highlight symbol on double space."
+  (interactive)
+  (set-mark-command nil)  ; Set mark first
+  (let ((key (read-key "Mark set. Press SPC again to highlight symbol.")))
+    (if (eq key ?\s)
+        (progn
+          (deactivate-mark) ; Cancel the mark if the next read is also SPC
+	  (if (hi-lock--regexps-at-point)
+	      (unhighlight-regexp t)
+	    (progn
+	      (unhighlight-regexp t) ; Remove all previous highlights
+	      (message "Highlighting symbol ...")
+	      (highlight-symbol-at-point)))
+	  )
+      ;; If another key was pressed, execute that key
+      (setq unread-command-events (list key)))))
+
+;;;###autoload
+(defun scamx-insert-space ()
+  "Insert a single space at point, which now works in Normal mode."
+  (interactive)
+  (insert " "))
+
 (provide 'scamx-command)

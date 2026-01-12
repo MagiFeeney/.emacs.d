@@ -20,7 +20,7 @@
    '("0" . meow-digit-argument)
    '("-" . negative-argument)
    '("," . mark-defun)
-   '("*" . xref-find-definitions)   
+   '("*" . xref-find-definitions)
    '("(" . backward-list)
    '(")" . forward-list)
    '("[" . backward-sexp)
@@ -118,7 +118,7 @@
    '("!" . shell-command)
    '("$" . ispell-word)
    '("%" . query-replace)
-   '("^" . just-one-space)
+   '("^" . scamx-insert-space)
    '("*" . xref-find-definitions)
    '("-" . negative-argument)
    '("," . scamx-mark-inside-pairs)
@@ -152,7 +152,7 @@
    '("/" . execute-extended-command)
    '("\\" . delete-horizontal-space)
    '("=" . mark-word)
-   '("SPC" . set-mark-command)
+   '("SPC" . scamx-space-command)
    '(";" . comment-line)
    '("'" . comment-or-uncomment-region)
    ;; multiple cursors
@@ -163,7 +163,8 @@
    '(":" . mc/mark-all-like-this)
    '("\"" . mc/edit-lines)
    '("@" . mc/mark-all-words-like-this)
-   '("#" . mc/mark-all-in-region)))
+   '("#" . mc/mark-all-in-region)
+   '("|" . highlight-symbol-at-point)))
 
 (use-package meow
   :config

@@ -163,8 +163,7 @@
    '(":" . mc/mark-all-like-this)
    '("\"" . mc/edit-lines)
    '("@" . mc/mark-all-words-like-this)
-   '("#" . mc/mark-all-in-region)
-   '("|" . highlight-symbol-at-point)))
+   '("#" . mc/mark-all-in-region)))
 
 (use-package meow
   :config

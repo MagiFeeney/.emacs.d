@@ -228,9 +228,9 @@ the deleted text (similar to `kill-region`)."
       (setq unread-command-events (list key)))))
 
 ;;;###autoload
-(defun scamx-insert-space ()
-  "Insert a single space at point, which now works in Normal mode."
-  (interactive)
-  (insert " "))
+(defun scamx-insert-space (&optional arg)
+  "Insert ARG number of spaces at point. Defaults to 1 if no prefix is provided."
+  (interactive "p")
+  (insert (make-string (or arg 1) ?\s)))
 
 (provide 'scamx-command)

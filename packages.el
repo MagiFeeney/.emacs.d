@@ -278,6 +278,39 @@ If ###@### is found, remove it and place point there at the end."
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (add-hook 'dumb-jump-mode-hook #'dumb-jump-check-searcher))
 
+;; tramp speedup suggested by
+;; https://coredumped.dev/2025/06/18/making-tramp-go-brrrr./
+(use-package tramp
+  :ensure nil
+  :init
+  (setq remote-file-name-inhibit-locks t
+        tramp-use-scp-direct-remote-copying t
+        tramp-copy-size-limit (* 1024 1024)
+        tramp-default-method "rsync"
+        remote-file-name-inhibit-auto-save-visited t)
+  :custom
+  ;; Direct async
+  (connection-local-set-profile-variables
+   'remote-direct-async-process
+   '((tramp-direct-async-process . t)))
+
+  (connection-local-set-profiles
+   '(:application tramp :protcol "scp")
+   'remote-direct-async-process)
+
+  (connection-local-set-profiles
+   '(:application tramp :protocol "rsync")
+   'remote-direct-async-process)
+
+  (connection-local-set-profiles
+   '(:application tramp :protocol "ssh")
+   'remote-direct-async-process)
+
+  (magit-tramp-pipe-stty-settings 'pty)
+  (with-eval-after-load 'tramp
+    (with-eval-after-load 'compile
+      (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options))))
+
 ;; Speedup tramp
 (use-package tramp-hlo
   :ensure t
@@ -329,4 +362,4 @@ If ###@### is found, remove it and place point there at the end."
   (eglot-autoshutdown t)
   :config
   (add-to-list 'eglot-server-programs
-	       '(python-mode . ("/home/magifeeney/miniconda3/bin/pylsp"))))
+               '(python-mode . ("~/miniconda3/bin/pylsp"))))

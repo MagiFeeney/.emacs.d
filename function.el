@@ -115,7 +115,7 @@ If isRenew is non-nil, it indicates that my-password already has a value."
             (setq continue nil))))
     (when (search-forward "*tramp" nil t)
       (Buffer-menu-delete)))
-  
+
   (Buffer-menu-execute))
 
 (global-set-key (kbd "C-c C-d") 'delete-tramp-buffers)
@@ -229,4 +229,16 @@ If it doesn't exist, report 'not found' and stop."
           (message "File moved to %s" target-file))
       (message "File not found: %s" source-file))))
 
-
+;;;##autoload
+(defun my/org-region-to-markdown-and-save ()
+  "Convert the active region in Org mode to Markdown and put it in the kill ring."
+  (interactive)
+  (unless (featurep 'ox-md)
+    (require 'ox-md))
+  (if (use-region-p)
+      (let ((md (org-export-string-as
+                 (buffer-substring-no-properties (region-beginning) (region-end))
+                 'md t)))
+        (kill-new md)
+        (message "Markdown saved to kill ring."))
+    (message "No active region.")))

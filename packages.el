@@ -166,14 +166,14 @@
   :ensure t
   :defer t
   :mode ("\\.pdf\\'" . pdf-view-mode)
-  ;; :hook
-  ;; (pdf-view-mode . delete-other-windows)
+  :hook
+  ((pdf-view-mode . delete-other-windows)
+   (pdf-view-mode . pdf-view-roll-minor-mode))
   :bind (:map pdf-view-mode-map
 	      ("[" . pdf-view-previous-page-command)
 	      ("]" . pdf-view-next-page-command))
   :config
   (pdf-tools-install :no-query)
-  (add-hook 'pdf-view-after-change-page-hook #'delete-other-windows)
   ;; (add-hook 'pdf-view-after-change-page-hook #'pdf-view-fit-height-to-window)
   )
 
@@ -316,5 +316,17 @@ If ###@### is found, remove it and place point there at the end."
 (use-package indent
   :ensure nil
   :bind (:map indent-rigidly-map
-              ("b" . indent-rigidly-left)
-              ("f" . indent-rigidly-right)))
+	      ("b" . indent-rigidly-left)
+	      ("f" . indent-rigidly-right)
+	      ("a" . indent-rigidly-left-to-tab-stop)
+	      ("e" . indent-rigidly-right-to-tab-stop)))
+
+;; lsp
+(use-package eglot
+  :ensure nil
+  :hook ((python-mode . eglot-ensure))
+  :custom
+  (eglot-autoshutdown t)
+  :config
+  (add-to-list 'eglot-server-programs
+	       '(python-mode . ("/home/magifeeney/miniconda3/bin/pylsp"))))

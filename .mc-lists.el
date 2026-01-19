@@ -146,8 +146,11 @@
 	repeat
 	scamx-backward-delete-char
 	scamx-backward-kill-word
+	scamx-backward-paragraph
+	scamx-forward-paragraph
 	scamx-delete-char
 	scamx-edit-lines
+	scamx-insert-space
 	scamx-kill-line
 	scamx-kill-paragraph
 	scamx-kill-word
@@ -192,7 +195,6 @@
 	mouse-drag-vertical-line
 	mouse-set-region
 	next-buffer
-	scamx-forward-paragraph
 	scamx-suspend
 	suspend-frame
 	swiper

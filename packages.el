@@ -288,6 +288,7 @@ If ###@### is found, remove it and place point there at the end."
         tramp-copy-size-limit (* 1024 1024)
         tramp-default-method "rsync"
         remote-file-name-inhibit-auto-save-visited t)
+  (add-to-list 'load-path "~/emacs-tramp-rpc/lisp")
   :custom
   ;; Direct async
   (connection-local-set-profile-variables
@@ -309,7 +310,9 @@ If ###@### is found, remove it and place point there at the end."
   (magit-tramp-pipe-stty-settings 'pty)
   (with-eval-after-load 'tramp
     (with-eval-after-load 'compile
-      (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options))))
+      (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options)))
+  :config
+  (require 'tramp-rpc))
 
 ;; Speedup tramp
 (use-package tramp-hlo

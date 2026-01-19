@@ -10,7 +10,9 @@
 (defalias 'task-jctrl-kill
    (kmacro "M-h C-n C-' C-a j c t r l SPC k i l l SPC M-f C-k <return> M-h C-w"))
 
+(defalias 'markdown-url-to-org
+   (kmacro "c ( / t r a n SPC s e x p <return> ( ( s f g , i [ g g , . c j 2 = i [ g g"))
 
 (global-set-key (kbd "C-c x k") 'task-kill)
 (global-set-key (kbd "C-c x j") 'task-jctrl-kill)
-
+(global-set-key (kbd "C-c x l") 'markdown-url-to-org)

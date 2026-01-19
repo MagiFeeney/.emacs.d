@@ -193,6 +193,7 @@
 (load-file "~/.emacs.d/packages.el")
 (load-file "~/.emacs.d/completion.el")
 (load-file "~/.emacs.d/function.el")
+(load-file "~/.emacs.d/kmacros.el")
 
 (use-package scamx
   :ensure meow

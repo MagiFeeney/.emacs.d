@@ -43,6 +43,7 @@
 	comment-or-uncomment-region
 	consult-yank-pop
 	copy-line-down
+	corfu-quit
 	default-indent-new-line
 	delete-horizontal-space
 	dired-do-flagged-delete
@@ -72,6 +73,7 @@
 	evil-exit-emacs-state
 	evil-forward-word-begin
 	evil-insert
+	expand-abbrev
 	forward-page
 	forward-sexp
 	indent-for-tab-command
@@ -85,6 +87,7 @@
 	mark-sexp
 	mark-word
 	markdown-cycle
+	markdown-end-of-line
 	mc--insert-letter-and-increase
 	mc/mark-all-in-region
 	meow-back-word
@@ -147,9 +150,9 @@
 	scamx-backward-delete-char
 	scamx-backward-kill-word
 	scamx-backward-paragraph
-	scamx-forward-paragraph
 	scamx-delete-char
 	scamx-edit-lines
+	scamx-forward-paragraph
 	scamx-insert-space
 	scamx-kill-line
 	scamx-kill-paragraph
@@ -198,4 +201,5 @@
 	scamx-suspend
 	suspend-frame
 	swiper
+	vterm
 	))

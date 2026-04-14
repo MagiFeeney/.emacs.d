@@ -5,6 +5,9 @@
 	  ("ua" "↑")
 	  ("da" "↓")
 
+	  ("x" "❌")
+	  ("c" "✅")
+
 	  ;; Emojis for context markers
 	  ("todo"  "👷 TODO:")
 	  ("fixme" "🔥 FIXME:")

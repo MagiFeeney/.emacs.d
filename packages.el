@@ -16,6 +16,7 @@
               ("+" . dired-create-dir-or-file)
 	      ("j" . dired-goto-dir-or-file)
 	      ("v" . vterm)
+	      ("'" . ghostel)
 	      ("/" . scamx-tramp-find-file)
 	      ("z" . magit-status))
   :custom
@@ -64,6 +65,8 @@
      ("j" "Journal" entry (file+datetree "~/Documents/Brain/Capture/journal.org")
       "* %?\nEntered on %U\n  %i\n  %a")
      ("p" "Prioritized" entry (file+headline "~/Documents/Brain/Capture/priority.org" "Papers")
+      "* TODO %?\n  %i\n  %a")
+     ("s" "Sync Phone" entry (file+headline "~/Documents/Brain/Capture/sync-phone.org" "Daily")
       "* TODO %?\n  %i\n  %a")))
   :bind (:map scamx-org-map
 	      (("a" . org-agenda)
@@ -83,7 +86,8 @@
 	org-hide-emphasis-markers t
 	org-pretty-entities t
 	org-agenda-tags-column 0
-	org-ellipsis "…") ;newline when creating a TODO
+	org-ellipsis "…"
+	org-use-sub-superscripts '{}) ;newline when creating a TODO
 
   ;; (add-hook 'org-mode-hook #'scamx-motion-org-mode)
   )
@@ -168,7 +172,8 @@
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :hook
   ((pdf-view-mode . delete-other-windows)
-   (pdf-view-mode . pdf-view-roll-minor-mode))
+   ;; (pdf-view-mode . pdf-view-roll-minor-mode)
+   )
   :bind (:map pdf-view-mode-map
 	      ("[" . pdf-view-previous-page-command)
 	      ("]" . pdf-view-next-page-command))
@@ -199,6 +204,11 @@
   :config
   (setq vterm-max-scrollback 100000
 	vterm-timer-delay 0.01))
+
+(use-package ghostel
+  :ensure t
+  :defer t
+  )
 
 (use-package docker
   :ensure t
@@ -312,14 +322,15 @@ If ###@### is found, remove it and place point there at the end."
     (with-eval-after-load 'compile
       (remove-hook 'compilation-mode-hook #'tramp-compile-disable-ssh-controlmaster-options)))
   :config
-  (require 'tramp-rpc))
+  (require 'tramp-rpc)
+  (setq tramp-rpc-deploy-backend 'python))
 
 ;; Speedup tramp
-(use-package tramp-hlo
-  :ensure t
-  :after tramp
-  :config
-  (tramp-hlo-setup))
+;; (use-package tramp-hlo
+;;   :ensure t
+;;   :after tramp
+;;   :config
+;;   (tramp-hlo-setup))
 
 ;; Center screen
 (use-package olivetti
@@ -332,8 +343,8 @@ If ###@### is found, remove it and place point there at the end."
   :init
   (fringe-mode 0)
   :config
-  (setq olivetti-body-width 100)
-  (setq olivetti-minimum-body-width 80)
+  (setq olivetti-body-width 120)
+  (setq olivetti-minimum-body-width 100)
   (setq olivetti-style 'variable))
 
 ;; Beautifying org mode
@@ -357,12 +368,18 @@ If ###@### is found, remove it and place point there at the end."
 	      ("a" . indent-rigidly-left-to-tab-stop)
 	      ("e" . indent-rigidly-right-to-tab-stop)))
 
-;; lsp
-(use-package eglot
-  :ensure nil
-  :hook ((python-mode . eglot-ensure))
+(use-package flash
+  :ensure t
+  :defer t
+  :commands (flash-jump flash-jump-continue
+			flash-treesitter)
   :custom
-  (eglot-autoshutdown t)
+  (flash-multi-window t)
   :config
-  (add-to-list 'eglot-server-programs
-               '(python-mode . ("~/miniconda3/bin/pylsp"))))
+  ;; Search integration (labels during C-s, /, ?)
+  (require 'flash-isearch)
+  (flash-isearch-mode 1))
+
+(use-package org-mindmap
+  :vc (:url "https://github.com/krvkir/org-mindmap.git" :rev :newest)
+  :after org)

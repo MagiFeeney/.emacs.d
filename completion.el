@@ -186,8 +186,9 @@
   (add-hook 'corfu-mode-hook
             (lambda ()
               (setq-local completion-styles '(orderless-fast basic)
-                          completion-category-overrides nil
-                          completion-category-defaults nil))))
+			  completion-category-overrides '((file (styles partial-completion)))
+			  completion-category-defaults nil
+			  completion-pcm-leading-wildcard t))))
 
 ;; Completion at point
 ;; TODO: https://github.com/minad/cape/issues/116

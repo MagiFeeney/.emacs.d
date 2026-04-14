@@ -143,7 +143,7 @@
    '("Q" . consult-goto-line)
    '("k" . scamx-kill-line)
    '("<backspace>" . kill-whole-line)
-   '("t" . avy-goto-char)
+   '("t" . flash-jump)
    '("u" . undo)
    '("r" . undo-redo)
    '("z" . zap-up-to-char)
@@ -152,7 +152,7 @@
    '("/" . execute-extended-command)
    '("\\" . delete-horizontal-space)
    '("=" . mark-word)
-   '("SPC" . scamx-space-command)
+   '("SPC" . set-mark-command)
    '(";" . comment-line)
    '("'" . comment-or-uncomment-region)
    ;; multiple cursors

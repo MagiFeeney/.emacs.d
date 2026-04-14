@@ -153,7 +153,7 @@ If isRenew is non-nil, it indicates that my-password already has a value."
 ;;;###autoload
 (defun print-in-SoC (filename)
   (interactive "fPrint file: ")
-  (let ((cmd (format "smbclient //nts27.comp.nus.edu.sg/psf501 -A ~/.smbcredentials -c 'print \%s\'" (expand-file-name filename))))
+  (let ((cmd (format "smbclient //nts27b.res.nus.edu.sg/psf501 -A ~/.smbcredentials -c 'print \%s\'" (expand-file-name filename))))
     (shell-command cmd)))
 
 ;;;##autoload
@@ -242,3 +242,14 @@ If it doesn't exist, report 'not found' and stop."
         (kill-new md)
         (message "Markdown saved to kill ring."))
     (message "No active region.")))
+
+(winner-mode +1)
+
+;;;##autoload
+(defun toggle-delete-other-windows ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode
+           (equal (selected-window) (next-window)))
+      (winner-undo)
+    (delete-other-windows)))

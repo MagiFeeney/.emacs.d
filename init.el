@@ -1,3 +1,42 @@
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+
+(setq redisplay-skip-fontification-on-input t)
+
+(setq read-process-output-max (* 4 1024 1024)) ; 4MB
+
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+(setq save-interprogram-paste-before-kill t)
+
+(setq kill-do-not-save-duplicates t)
+
+(setq savehist-additional-variables
+      '(search-ring regexp-search-ring kill-ring))
+
+(add-hook 'savehist-save-hook
+          (lambda ()
+            (setq kill-ring
+                  (mapcar #'substring-no-properties
+                          (cl-remove-if-not #'stringp kill-ring)))))
+
+(add-hook 'after-save-hook
+          #'executable-make-buffer-file-executable-if-script-p)
+
+(setq ffap-machine-p-known 'reject)
+
+(setq window-combination-resize t)
+
+(setq set-mark-command-repeat-pop t)
+
+(advice-add 'save-place-find-file-hook :after
+            (lambda (&rest _)
+              (when buffer-file-name (ignore-errors (recenter)))))
+
+(setq help-window-select t)
+
 ;; garbage collection
 (setq gc-cons-percentage 0.2)
 (setq gc-cons-threshold (* 200 1000 1000))
@@ -175,13 +214,19 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex cape consult corfu corfu-prescient denote docker
-		doom-themes doric-themes dumb-jump ebib gruvbox-theme
-		ivy-bibtex magit magit-todos marginalia markdown-mode
-		meow multiple-cursors olivetti orderless org-modern
-		org-ref org-roam ox-rss pdf-tools system-packages
-		tramp tramp-hlo transient vertico vterm yasnippet-capf
-		yasnippet-snippets))
+   '(ace-window auctex cape consult corfu-prescient denote docker
+		doom-themes doric-themes dropbox dumb-jump ebib
+		ember-theme flash ghostel gruvbox-theme ivy-bibtex
+		magit-todos marginalia markdown-mode meow
+		multiple-cursors olivetti orderless org-mindmap
+		org-modern org-ref org-roam ox-rss pdf-tools plz
+		rust-mode system-packages tramp vertico vterm
+		yasnippet-capf yasnippet-snippets))
+ '(package-vc-selected-packages
+   '((ember-theme :url "https://github.com/ember-theme/emacs")
+     (org-mindmap :url "https://github.com/krvkir/org-mindmap.git")
+     (ghostel :url "https://github.com/dakra/ghostel")
+     (dropbox :url "https://github.com/lorniu/dropbox.el")))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(save-place-mode t)
  '(send-mail-function 'mailclient-send-it)
@@ -256,9 +301,11 @@
 (setq python-shell-interpreter "~/miniconda3/bin/python3")
 
 ;; automatically remove trailing white space every time file is saved
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+;; (add-hook 'prog-mode-hook
+;;           (lambda ()
+;;             (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)

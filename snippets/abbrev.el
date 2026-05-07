@@ -7,6 +7,7 @@
 
 	  ("x" "❌")
 	  ("c" "✅")
+	  ("f" "🔥")
 
 	  ;; Emojis for context markers
 	  ("todo"  "👷 TODO:")

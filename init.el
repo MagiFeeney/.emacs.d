@@ -214,16 +214,19 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex cape consult corfu-prescient denote docker
-		doom-themes doric-themes dropbox dumb-jump ebib
-		ember-theme flash ghostel gruvbox-theme ivy-bibtex
-		magit-todos marginalia markdown-mode meow
-		multiple-cursors olivetti orderless org-mindmap
-		org-modern org-ref org-roam ox-rss pdf-tools plz
-		rust-mode system-packages tramp vertico vterm
-		yasnippet-capf yasnippet-snippets))
+   '(ace-window auctex buffer-to-pdf cape consult consult-gh
+		corfu-prescient denote docker doom-themes doric-themes
+		dropbox dumb-jump ebib ember-theme flash ghostel
+		gruvbox-theme ivy-bibtex magit-todos marginalia
+		markdown-mode meow multiple-cursors olivetti orderless
+		org-mindmap org-modern org-ref org-roam ox-rss
+		pdf-tools plz rust-mode system-packages tramp vertico
+		vertico-prescient vterm yasnippet-capf
+		yasnippet-snippets))
  '(package-vc-selected-packages
-   '((ember-theme :url "https://github.com/ember-theme/emacs")
+   '((buffer-to-pdf :vc-backend Git :url
+		    "https://github.com/protesilaos/buffer-to-pdf.git")
+     (ember-theme :url "https://github.com/ember-theme/emacs")
      (org-mindmap :url "https://github.com/krvkir/org-mindmap.git")
      (ghostel :url "https://github.com/dakra/ghostel")
      (dropbox :url "https://github.com/lorniu/dropbox.el")))
@@ -310,3 +313,16 @@
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:foundry "JB" :family "JetBrains Mono" :weight bold :height 180 :width normal))))
+ '(fixed-pitch ((t (:family "Fira Code Retina" :height 160))))
+ '(hl-indent-scope-even-face ((t (:background "#282828"))))
+ '(hl-indent-scope-odd-face ((t (:background "#141414"))))
+ '(isearch ((t (:foreground "pink" :background "black" :weight bold :underline t))))
+ '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
+ '(variable-pitch ((t (:family "ETBembo" :height 180 :weight thin))))
+ '(window-divider ((t (:foreground "#b1bf88")))))

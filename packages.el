@@ -383,3 +383,39 @@ If ###@### is found, remove it and place point there at the end."
 (use-package org-mindmap
   :vc (:url "https://github.com/krvkir/org-mindmap.git" :rev :newest)
   :after org)
+
+(use-package buffer-to-pdf
+  :ensure nil
+  :init
+  (unless (package-installed-p 'buffer-to-pdf)
+    (package-vc-install "https://github.com/protesilaos/buffer-to-pdf.git"))
+  :config
+  (setq buffer-to-pdf-directory (expand-file-name "~/Downloads/")))
+
+(use-package consult-gh
+  :ensure t
+  :after consult
+
+  :when (string-equal system-type "gnu/linux")
+  :ensure-system-package
+  ((gh . github-cli))
+
+  :init
+  (unless (executable-find "gh")
+    (warn "GitHub CLI (gh) is not installed or not in PATH"))
+
+  (unless (json-available-p)
+    (warn "Emacs was built without native JSON support; consult-gh will have limited functionality"))
+
+  :config
+  (use-package consult
+    :ensure t)
+
+  (use-package markdown-mode
+    :ensure t)
+
+  (use-package yaml
+    :ensure t)
+
+  (unless (file-exists-p (expand-file-name "~/.config/gh/hosts.yml"))
+    (message "Run `gh auth login` to authenticate GitHub CLI")))

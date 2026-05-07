@@ -210,6 +210,13 @@
 
 ;; sort candidates based on occurrence
 (use-package corfu-prescient
+  :ensure t
   :after corfu
   :config
   (corfu-prescient-mode))
+
+(use-package vertico-prescient
+  :ensure t
+  :after vertico
+  :config
+  (vertico-prescient-mode))

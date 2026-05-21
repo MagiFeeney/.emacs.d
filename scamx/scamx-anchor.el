@@ -162,7 +162,8 @@
    '(">" . mc/skip-to-next-like-this)
    '(":" . mc/mark-all-like-this)
    '("\"" . mc/edit-lines)
-   '("@" . mc/mark-all-words-like-this)
+   ;; '("@" . mc/mark-all-words-like-this)
+   '("@" . pop-global-mark)
    '("#" . mc/mark-all-in-region)))
 
 (use-package meow

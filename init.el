@@ -214,13 +214,12 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex buffer-to-pdf cape consult consult-gh
-		corfu-prescient denote docker doom-themes doric-themes
-		dropbox dumb-jump ebib ember-theme flash ghostel
-		gruvbox-theme ivy-bibtex magit-todos marginalia
-		markdown-mode meow multiple-cursors olivetti orderless
-		org-mindmap org-modern org-ref org-roam ox-rss
-		pdf-tools plz rust-mode system-packages tramp vertico
+   '(ace-window auctex buffer-to-pdf cape consult-gh corfu-prescient
+		denote docker doom-themes doric-themes dropbox
+		dumb-jump ebib flash ghostel gruvbox-theme ivy-bibtex
+		magit-todos marginalia meow multiple-cursors olivetti
+		orderless org-mindmap org-modern org-ref org-roam
+		ox-rss pdf-tools plz popup rust-mode system-packages
 		vertico-prescient vterm yasnippet-capf
 		yasnippet-snippets))
  '(package-vc-selected-packages
@@ -236,7 +235,7 @@
  '(tool-bar-mode nil))
 
 ;; load custom files
-;; (load-file "~/.emacs.d/window.el")
+(load-file "~/.emacs.d/window.el")
 (load-file "~/.emacs.d/theme.el")
 (load-file "~/.emacs.d/packages.el")
 (load-file "~/.emacs.d/completion.el")
@@ -304,15 +303,15 @@
 (setq python-shell-interpreter "~/miniconda3/bin/python3")
 
 ;; automatically remove trailing white space every time file is saved
-;; (add-hook 'prog-mode-hook
-;;           (lambda ()
-;;             (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (put 'downcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+(setq display-line-numbers-type 'visual)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

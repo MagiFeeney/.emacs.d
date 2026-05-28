@@ -253,3 +253,55 @@ If it doesn't exist, report 'not found' and stop."
            (equal (selected-window) (next-window)))
       (winner-undo)
     (delete-other-windows)))
+
+;;;##autoload
+(defun magit-ruff-check-unstaged ()
+  "Get unstaged files from Magit and run interactive 'ruff check' on each sequentially."
+  (interactive)
+  (require 'magit)
+  (require 'vterm)
+  (let ((files (magit-unstaged-files)))
+    (if (null files)
+        (message "No unstaged files found!")
+      (let ((vterm-buffer (get-buffer-create "*Ruff Interactive Check*"))
+            (command-list '()))
+        (with-current-buffer vterm-buffer
+          (unless (derived-mode-p 'vterm-mode)
+            (vterm-mode)))
+        (pop-to-buffer vterm-buffer)
+
+        (dolist (file files)
+          (setq command-list
+                (append command-list
+                        (list
+                         (format "echo -e '\\n\\033[1;34m========================================\\033[0m'")
+                         (format "echo -e '\\033[1;32mChecking file: %s\\033[0m'" file)
+                         (format "echo -e '\\033[1;34m========================================\\033[0m'")
+                         (format "ruff check --fix %s" file)))))
+
+        (vterm-send-string
+         (concat (mapconcat 'identity command-list "; ") "\n"))))))
+
+(with-eval-after-load 'magit
+  (define-key magit-status-mode-map (kbd "#") #'magit-ruff-check-unstaged))
+
+;;;##autoload
+(defun quote-variables-in-region (beg end)
+  "Add double quotes to all variables in the selected region.
+Input: var1, var2, var3
+Output: \"var1\", \"var2\", \"var3\""
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      ;; Narrow the buffer to the selected region
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      ;; Search for symbols (words, including underscores and hyphens)
+      (while (re-search-forward "\\_<\\(\\w\\|\\s_\\)+\\_>" nil t)
+        ;; Check if it's already surrounded by quotes to avoid double-quoting
+        (let ((char-before-match (char-before (match-beginning 0))))
+          (unless (and char-before-match
+                       (or (= char-before-match ?\")
+                           (= char-before-match ?\')))
+            ;; Replace the match with the match surrounded by double quotes
+            (replace-match "\"\\&\"")))))))

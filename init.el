@@ -220,7 +220,7 @@
 		magit-todos marginalia meow multiple-cursors olivetti
 		orderless org-mindmap org-modern org-ref org-roam
 		ox-rss pdf-tools plz popup rust-mode system-packages
-		vertico-prescient vterm yasnippet-capf
+		vertico-prescient vterm vterm-toggle yasnippet-capf
 		yasnippet-snippets))
  '(package-vc-selected-packages
    '((buffer-to-pdf :vc-backend Git :url

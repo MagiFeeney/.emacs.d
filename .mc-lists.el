@@ -169,6 +169,7 @@
 	undefined
 	undo-redo
 	up-list
+	wdired--self-insert
 	yas-expand
 	zap-up-to-char
 	))

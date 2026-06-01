@@ -4,8 +4,6 @@
 
 (setq redisplay-skip-fontification-on-input t)
 
-(setq read-process-output-max (* 4 1024 1024)) ; 4MB
-
 (setq-default cursor-in-non-selected-windows nil)
 (setq highlight-nonselected-windows nil)
 
@@ -36,13 +34,6 @@
               (when buffer-file-name (ignore-errors (recenter)))))
 
 (setq help-window-select t)
-
-;; garbage collection
-(setq gc-cons-percentage 0.2)
-(setq gc-cons-threshold (* 200 1000 1000))
-      (add-hook
-       'after-init-hook
-       (lambda () (setq gc-cons-threshold (* 20 1000 1000))))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)

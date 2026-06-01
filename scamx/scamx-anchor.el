@@ -118,8 +118,8 @@
    '("(" . tear-off-window)
    '(")" . delete-frame)
    '("/" . execute-extended-command))
-  (meow-isearch-define-key
-   '("g" . meow-isearch-exit)
+  (scamx-isearch-define-key
+   '("g" . scamx-isearch-exit)
    '("n" . isearch-repeat-forward)
    '("p" . isearch-repeat-backward)
    '("s" . isearch-forward)
@@ -141,7 +141,7 @@
    '("?" . scamx-help-keymap)
    '("c" . meow-convert)
    '("v" . meow-visit-all)
-   '("s" . meow-isearch)
+   '("s" . scamx-isearch)
    '("`" . meow-motion)
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)

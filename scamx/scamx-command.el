@@ -233,4 +233,15 @@ the deleted text (similar to `kill-region`)."
   (interactive "p")
   (insert (make-string (or arg 1) ?\s)))
 
+;;;###autoload
+(defun scamx-isearch-forward ()
+  "Apply `isearch` to the active region if any, otherwise fall back to the default."
+  (interactive)
+  (if (use-region-p)
+      (let ((region-str (buffer-substring-no-properties (region-beginning) (region-end))))
+        (deactivate-mark)
+        (isearch-mode t nil nil nil)
+        (isearch-yank-string region-str))
+    (isearch-forward)))
+
 (provide 'scamx-command)

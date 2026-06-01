@@ -385,7 +385,7 @@ If ###@### is found, remove it and place point there at the end."
   :after org)
 
 (use-package buffer-to-pdf
-  :ensure nil
+  :ensure t
   :init
   (unless (package-installed-p 'buffer-to-pdf)
     (package-vc-install "https://github.com/protesilaos/buffer-to-pdf.git"))

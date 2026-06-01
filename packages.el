@@ -419,3 +419,6 @@ If ###@### is found, remove it and place point there at the end."
 
   (unless (file-exists-p (expand-file-name "~/.config/gh/hosts.yml"))
     (message "Run `gh auth login` to authenticate GitHub CLI")))
+
+(use-package dropbox
+  :vc (:url "https://github.com/lorniu/dropbox.el"))

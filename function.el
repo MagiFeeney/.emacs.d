@@ -277,7 +277,7 @@ If it doesn't exist, report 'not found' and stop."
                          (format "echo -e '\\n\\033[1;34m========================================\\033[0m'")
                          (format "echo -e '\\033[1;32mChecking file: %s\\033[0m'" file)
                          (format "echo -e '\\033[1;34m========================================\\033[0m'")
-                         (format "ruff check --fix %s" file)))))
+                         (format "ruff check %s" file)))))
 
         (vterm-send-string
          (concat (mapconcat 'identity command-list "; ") "\n"))))))
@@ -305,3 +305,22 @@ Output: \"var1\", \"var2\", \"var3\""
                            (= char-before-match ?\')))
             ;; Replace the match with the match surrounded by double quotes
             (replace-match "\"\\&\"")))))))
+
+;;;##autoload
+(defun my/set-dynamic-font-size ()
+  "Calculate and set the font size based on the current display height."
+  (interactive)
+  (let* ((base-display-height 2160.0)
+         (base-font-height 180)
+         (current-display-height (display-pixel-height))
+         (scale-factor (/ current-display-height base-display-height))
+         (new-font-height (round (* base-font-height scale-factor))))
+
+    (setq new-font-height (max 100 (min new-font-height 400)))
+
+    (set-face-attribute 'default nil
+                        :family "JetBrains Mono"
+                        :weight 'bold
+                        :height new-font-height)))
+
+(add-hook 'window-setup-hook #'my/set-dynamic-font-size)

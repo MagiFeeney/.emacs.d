@@ -209,7 +209,7 @@
 		denote docker doom-themes doric-themes dropbox
 		dumb-jump ebib flash ghostel gruvbox-theme ivy-bibtex
 		magit-todos marginalia meow multiple-cursors olivetti
-		orderless org-mindmap org-modern org-ref org-roam
+		orderless org org-mindmap org-modern org-ref org-roam
 		ox-rss pdf-tools plz popup rust-mode system-packages
 		vertico-prescient vterm vterm-toggle yasnippet-capf
 		yasnippet-snippets))
@@ -279,6 +279,10 @@
                   mode-name
                   "  "
 
+		  (:eval (when vc-mode
+			   (propertize (replace-regexp-in-string "^ Git[:-]" " " vc-mode)
+				       'face 'mode-line-emphasis)))
+
                   mode-line-end-spaces)
 		)
 )
@@ -302,6 +306,12 @@
 
 (setq display-line-numbers-type 'visual)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+(setopt
+ scroll-conservatively 101
+ scroll-margin 999
+ scroll-preserve-screen-position 'always
+ maximum-scroll-margin 0.5)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

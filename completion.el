@@ -1,3 +1,17 @@
+;; Unified interface for completion
+(use-package ido
+  :ensure nil
+  :init
+  (setq ido-enable-flex-matching t
+        ido-everywhere t
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point 'guess
+        ido-max-prospects 10
+        ido-default-file-method 'selected-window
+        ido-default-buffer-method 'selected-window)
+  :config
+  (ido-mode 1))
+
 ;; Enable vertico
 (use-package vertico
   :ensure t

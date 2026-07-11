@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jaxtyping-prngkey
+# key: jk
+# --
+from jaxtyping import PRNGKeyArray

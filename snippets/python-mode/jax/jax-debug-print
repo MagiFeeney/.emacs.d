@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jax debug print
+# key: jp
+# --
+jax.debug.print("${1:Content} {${2:key}}", $2=${3:var})$0

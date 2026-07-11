@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jax-init-key
+# key: jik
+# --
+key = jax.random.PRNGKey(${1:init_key})

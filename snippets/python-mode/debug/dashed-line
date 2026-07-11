@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dashed line
+# key: dl
+# --
+print("-" * 100)$0

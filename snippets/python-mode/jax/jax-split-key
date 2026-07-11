@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jax-split-key
+# key: jsk
+# --
+keys$0 = jax.random.split(${1:key_to_split}, ${2:num_splits})

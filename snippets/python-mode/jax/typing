@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: typing
+# key: tp
+# --
+from typing import ${1:pkg}
+$0

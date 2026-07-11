@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: equinox
+# key: eqx
+# --
+import equinox as eqx

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jax-numpy
+# key: jnp
+# --
+import jax.numpy as jnp

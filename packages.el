@@ -421,4 +421,5 @@ If ###@### is found, remove it and place point there at the end."
     (message "Run `gh auth login` to authenticate GitHub CLI")))
 
 (use-package dropbox
+  :ensure t
   :vc (:url "https://github.com/lorniu/dropbox.el"))

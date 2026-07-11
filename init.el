@@ -205,14 +205,12 @@
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
-   '(ace-window auctex buffer-to-pdf cape consult-gh corfu-prescient
-		denote docker doom-themes doric-themes dropbox
-		dumb-jump ebib flash ghostel gruvbox-theme ivy-bibtex
-		magit-todos marginalia meow multiple-cursors olivetti
-		orderless org org-mindmap org-modern org-ref org-roam
-		ox-rss pdf-tools plz popup rust-mode system-packages
-		vertico-prescient vterm vterm-toggle yasnippet-capf
-		yasnippet-snippets))
+   '(auctex buffer-to-pdf cape consult-gh corfu-prescient denote docker
+	    dropbox dumb-jump ebib eglot flash ghostel ivy-bibtex
+	    magit-todos marginalia meow multiple-cursors oauth
+	    olivetti orderless org-mindmap org-modern org-ref org-roam
+	    pdf-tools posframe python tramp vertico-prescient vterm
+	    yasnippet-capf yasnippet-snippets))
  '(package-vc-selected-packages
    '((buffer-to-pdf :vc-backend Git :url
 		    "https://github.com/protesilaos/buffer-to-pdf.git")

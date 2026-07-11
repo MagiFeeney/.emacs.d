@@ -1,4 +1,3 @@
-
 (use-package modus-themes
   :ensure nil
   :demand t

@@ -199,6 +199,7 @@
 	mouse-drag-vertical-line
 	mouse-set-region
 	next-buffer
+	scamx-isearch
 	scamx-suspend
 	suspend-frame
 	swiper

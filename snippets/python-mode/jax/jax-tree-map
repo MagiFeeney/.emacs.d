@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jax-tree-map
+# key: jm
+# --
+jax.tree.map($2, $1)$0

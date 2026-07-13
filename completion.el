@@ -4,8 +4,9 @@
   :init
   (setq ido-enable-flex-matching t
         ido-everywhere t
-        ido-create-new-buffer 'always
         ido-max-prospects 10
+	ido-max-dir-file-cache 0
+        ido-create-new-buffer 'always
         ido-default-file-method 'selected-window
         ido-default-buffer-method 'selected-window)
   :config

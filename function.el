@@ -260,27 +260,36 @@ If it doesn't exist, report 'not found' and stop."
   (interactive)
   (require 'magit)
   (require 'vterm)
-  (let ((files (magit-unstaged-files)))
+  (require 'seq)
+
+  (let* ((all-files (magit-unstaged-files))
+         (files (seq-filter (lambda (f)
+                              (and (string-suffix-p ".py" f)
+                                   (file-exists-p f)))
+                            all-files)))
     (if (null files)
         (message "No unstaged files found!")
       (let ((vterm-buffer (get-buffer-create "*Ruff Interactive Check*"))
+            (script-file (make-temp-file "ruff-check-"))
             (command-list '()))
+
+        (dolist (file files)
+          (let ((quoted-file (shell-quote-argument file)))
+            (push (format "echo -e '\\n\\033[1;34m========================================\\033[0m'") command-list)
+            (push (format "echo -e '\\033[1;32mChecking file: %s\\033[0m'" quoted-file) command-list)
+            (push (format "echo -e '\\033[1;34m========================================\\033[0m'") command-list)
+            (push (format "ruff check %s" quoted-file) command-list)))
+
+        (with-temp-file script-file
+          (insert (mapconcat 'identity (nreverse command-list) "\n"))
+          (insert (format "\nrm '%s'\n" script-file)))
+
         (with-current-buffer vterm-buffer
           (unless (derived-mode-p 'vterm-mode)
             (vterm-mode)))
         (pop-to-buffer vterm-buffer)
 
-        (dolist (file files)
-          (setq command-list
-                (append command-list
-                        (list
-                         (format "echo -e '\\n\\033[1;34m========================================\\033[0m'")
-                         (format "echo -e '\\033[1;32mChecking file: %s\\033[0m'" file)
-                         (format "echo -e '\\033[1;34m========================================\\033[0m'")
-                         (format "ruff check %s" file)))))
-
-        (vterm-send-string
-         (concat (mapconcat 'identity command-list "; ") "\n"))))))
+        (vterm-send-string (format "source '%s'\n" script-file))))))
 
 (with-eval-after-load 'magit
   (define-key magit-status-mode-map (kbd "#") #'magit-ruff-check-unstaged))
@@ -310,7 +319,7 @@ Output: \"var1\", \"var2\", \"var3\""
 (defun my/set-dynamic-font-size ()
   "Calculate and set the font size based on the current display height."
   (interactive)
-  (let* ((base-display-height 2160.0)
+  (let* ((base-display-height 1980.0)
          (base-font-height 180)
          (current-display-height (display-pixel-height))
          (scale-factor (/ current-display-height base-display-height))

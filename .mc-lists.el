@@ -87,6 +87,7 @@
 	mark-sexp
 	mark-word
 	markdown-cycle
+	markdown-electric-backquote
 	markdown-end-of-line
 	mc--insert-letter-and-increase
 	mc/mark-all-in-region
@@ -140,6 +141,7 @@
 	paredit-backward-up
 	paredit-forward
 	paredit-forward-up
+	pop-to-mark-command
 	previous-buffer
 	python-nav-backward-up-list
 	python-nav-up-list
@@ -184,6 +186,7 @@
 	goto-line
 	isearch-abort
 	isearch-delete-char
+	isearch-exit-at-once
 	isearch-printing-char
 	ivy-done
 	mark-page

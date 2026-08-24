@@ -126,3 +126,38 @@ This should be used as `:after' advice with `view-echo-area-messages'."
   (select-window (get-buffer-window man-buffer)))
 
 (advice-add 'Man-notify-when-ready :after 'my/select-man-window)
+
+;; Layout
+(use-package window
+  :ensure nil
+  :custom
+  (display-buffer-alist
+   '(
+     ("\\*\\(Flymake diagnostics\\|Backtrace\\|Warnings\\|Compile-Log\\|compilation\\|[Hh]elp\\|Messages\\|Bookmark List\\|Ibuffer\\|Occur\\)\\*"
+      (display-buffer-in-side-window)
+      (window-height . 0.25)
+      (side . bottom)
+      (slot . 0))
+
+     ("\\*\\(xref\\|Completions\\)"
+      (display-buffer-in-side-window)
+      (window-height . 0.25)
+      (side . bottom)
+      (slot . 1))
+
+
+     ("\\*\\(eldoc.*\\)\\*"
+      (display-buffer-in-side-window)
+      (window-width . 0.25)
+      (side . right)
+      (slot . 0))
+
+     ("magit\\(-[a-z]+\\)?: "
+      (display-buffer-in-side-window)
+      (window-width . 0.4)
+      (side . right)
+      (slot . 1)
+      )
+     )
+   )
+  )

@@ -333,3 +333,48 @@ Output: \"var1\", \"var2\", \"var3\""
                         :height new-font-height)))
 
 (add-hook 'window-setup-hook #'my/set-dynamic-font-size)
+
+;;;##autoload
+(defun my/tensorboard-regex-builder ()
+  "Interactively build a TensorBoard regex filter."
+  (interactive)
+  (let* ((options '("1. Orderless"
+                    "2. Strict Order"
+                    "3. OR Logic"
+                    "4. Exact Match"
+                    "5. Exclude"))
+         (chosen-option (completing-read "Select filter strategy: " options nil t))
+         (input-str (read-string "Enter keywords (separated by commas): "))
+         (raw-keywords (split-string input-str "," t))
+         (keywords (mapcar #'string-trim raw-keywords))
+         final-regex)
+
+    (if (null keywords)
+        (user-error "No keywords provided")
+
+      (setq final-regex
+            (cond
+             ;; Orderless AND -> ^(?=.*A)(?=.*B)
+             ((string-prefix-p "1." chosen-option)
+              (concat "^" (mapconcat (lambda (k) (format "(?=.*%s)" (regexp-quote k)))
+                                     keywords "")))
+
+             ;; Strict Order AND -> .*A.*B
+             ((string-prefix-p "2." chosen-option)
+              (concat ".*" (mapconcat #'regexp-quote keywords ".*")))
+
+             ;; OR Logic -> (A|B|C)
+             ((string-prefix-p "3." chosen-option)
+              (format "(%s)" (mapconcat #'regexp-quote keywords "|")))
+
+             ;; Exact Match -> ^A, B, C$
+             ((string-prefix-p "4." chosen-option)
+              (format "^%s$" (regexp-quote (mapconcat #'identity keywords ", "))))
+
+             ;; Exclude -> ^((?!A|B).)*$
+             ((string-prefix-p "5." chosen-option)
+              (format "^((?!%s).)*$" (mapconcat #'regexp-quote keywords "|")))))
+
+      ;; Save to kill ring
+      (kill-new final-regex)
+      (message "Copied to kill ring: %s" final-regex))))

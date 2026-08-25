@@ -16,7 +16,8 @@
   "j" 'git-clone-from-kill-ring
   "p" 'org-publish-website
   "s" 'save-codecogs-image
-  "b" 'do.refs/ebib-import-from-clipboard)
+  "b" 'do.refs/ebib-import-from-clipboard
+  "r" 'my/tensorboard-regex-builder)
 
 ;; define scamx X map
 (defvar scamx-X-keymap (make-sparse-keymap))

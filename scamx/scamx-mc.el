@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;; scamx-multiple-cursors.el --- Advanced multiple cursor with movement-based placement -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026

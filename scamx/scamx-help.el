@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defvar scamx-help-keymap (make-sparse-keymap))
 (defalias 'scamx-help-keymap scamx-help-keymap)
 (define-key scamx-help-keymap (kbd "k") 'meow-describe-key)

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (require 'scamx-command)
 (require 'scamx-minibuffer)
 (require 'scamx-X)

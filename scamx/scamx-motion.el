@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun meow-motion-exit ()
   "Switch to NORMAL state."
   (interactive)

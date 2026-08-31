@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;;###autoload
 (defun LaTeX-forward-environment (&optional N do-push-mark)
   "Move to the \\end of the next \\begin, 

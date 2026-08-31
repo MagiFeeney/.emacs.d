@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; (fset 'task-kill
 ;;    (kmacro-lambda-form [?\M-h ?\C-n ?\C-\' ?\C-a ?k ?i ?l ?l ?  ?\M-d ?\M-f ?\C-k return ?\M-h ?\C-w] 0 "%d"))
 

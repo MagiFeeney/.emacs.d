@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;;###autoload
 (defun dired-create-dir-or-file (path)
   "Use `dired-create-directory' or `dired-create-empty-file' based on PATH.

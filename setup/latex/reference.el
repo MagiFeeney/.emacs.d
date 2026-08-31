@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defvar do.refs/db-dirs '("~/Documents/Brain/Refs/db-dirs")
   "A list of paths to directories containing all my bibtex databases")
 

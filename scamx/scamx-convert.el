@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defvar meow-convert-state-keymap
   (let ((keymap (make-keymap)))
     (suppress-keymap keymap t)

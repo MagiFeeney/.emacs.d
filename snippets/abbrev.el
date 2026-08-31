@@ -1,26 +1,90 @@
+;; -*- lexical-binding: t; -*-
 (define-abbrev-table 'global-abbrev-table
 	'(;; Arrows
 	  ("ra" "→")
 	  ("la" "←")
 	  ("ua" "↑")
 	  ("da" "↓")
+	  ("lr" "↔")
+	  ("ud" "↕")
+	  ("ne" "↗")
+	  ("nw" "↖")
+	  ("se" "↘")
+	  ("sw" "↙")
 
+	  ;; Status
 	  ("x" "❌")
 	  ("c" "✅")
 	  ("f" "🔥")
+	  ("w" "⚠️")
+	  ("e" "❗")
+	  ("i" "ℹ️")
+	  ("q" "❓")
+	  ("s" "⭐")
+	  ("bulb" "💡")
+	  ("boom" "💥")
 
-	  ;; Emojis for context markers
+	  ;; Programming
 	  ("todo"  "👷 TODO:")
 	  ("fixme" "🔥 FIXME:")
 	  ("note"  "📎 NOTE:")
 	  ("hack"  "👾 HACK:")
+	  ("bug"   "🐛")
+	  ("debug" "🐞 DEBUG:")
+	  ("test"  "🧪 TEST:")
+	  ("perf"  "⚡ PERF:")
+	  ("opt"   "⚙️ OPT:")
+	  ("deprecated" "🪦 DEPRECATED:")
+	  ("wip"   "🚧 WIP:")
+	  ("api"   "🔌 API:")
+	  ("db"    "🗄️ DB:")
+	  ("cache" "💾 CACHE:")
+	  ("lock"  "🔒")
+	  ("unlock" "🔓")
+
+	  ;; Math
+	  ("fn" "ƒ")
+	  ("lambda" "λ")
+	  ("def" "≔")
+	  ("null" "∅")
+	  ("in" "∈")
+	  ("nin" "∉")
+	  ("sub" "⊂")
+	  ("sup" "⊃")
+	  ("any" "∃")
+	  ("all" "∀")
+
+	  ;; Version control
+	  ("merge" "🔀")
+	  ("commit" "📦")
+	  ("revert" "↩️")
+	  ("branch" "⑂")
+	  ("tag" "🏷️")
+
+	  ;; Shell
+	  ("cmd" "⌘")
+	  ("prompt" "❯")
+	  ("exit" "↪")
+
+	  ;; Control flow
+	  ("async" "⏳")
+	  ("await" "⏱️")
+	  ("sync" "🔄")
+	  ("retry" "🔁")
+	  ("loop" "↻")
+	  ("break" "⛔")
+	  ("continue" "⏭️")
+	  ("return" "↩")
+	  ("yield" "⇣")
+
+	  ;; Emojis
 	  ("pinch"  "🤌")
 	  ("smile"  "😄")
-	  ("party" "🎉")
-	  ("up"  "☝️")
+	  ("party"  "🎉")
+	  ("up"     "☝️")
 	  ("applause" "👏")
 	  ("manyapplauses" "👏👏👏👏👏👏👏👏")
-	  ("heart" "❤️")
+	  ("heart"  "❤️")
 
 	  ;; NerdFonts
 	  ("nerdfolder" " ")

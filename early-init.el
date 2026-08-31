@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; garbage collection
 (setq gc-cons-percentage 0.2)
 (setq gc-cons-threshold (* 200 1000 1000))

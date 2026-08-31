@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;;###autoload
 (defun scamx-shrink-window-horizontally ()
   (interactive)

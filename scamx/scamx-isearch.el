@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (use-package isearch
   :custom
   (isearch-repeat-on-direction-change t)

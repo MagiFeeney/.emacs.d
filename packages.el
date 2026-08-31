@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; require packages from melpa
 (use-package package
   :ensure t

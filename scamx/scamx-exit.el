@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq meow-two-char-escape-sequence "gg")
 (setq meow-two-char-escape-delay 0.3)
 

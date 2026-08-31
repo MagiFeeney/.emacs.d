@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; overwrite the default meow-insert
 (defun meow-insert ()
   "Move to the start of selection, switch to INSERT state."

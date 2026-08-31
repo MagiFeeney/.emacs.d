@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; define a nested mode-setting map for scamx
 (defvar-keymap scamx-set-mode-map
   :doc "set to a specific mode"

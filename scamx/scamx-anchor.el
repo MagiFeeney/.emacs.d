@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (scamx-motion-define-key

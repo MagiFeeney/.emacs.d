@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq-default bidi-display-reordering 'left-to-right
               bidi-paragraph-direction 'left-to-right)
 (setq bidi-inhibit-bpa t)
@@ -304,12 +305,6 @@
 
 (setq display-line-numbers-type 'visual)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-
-(setopt
- scroll-conservatively 101
- scroll-margin 999
- scroll-preserve-screen-position 'always
- maximum-scroll-margin 0.5)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

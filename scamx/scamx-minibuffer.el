@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun my/meow-escape ()
   "Quit INSERT or quit minibuffer or do nothing."
   (interactive)

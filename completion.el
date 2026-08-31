@@ -1,27 +1,49 @@
-;; Unified interface for completion
-(use-package ido
-  :ensure nil
-  :init
-  (setq ido-enable-flex-matching t
-        ido-everywhere t
-        ido-max-prospects 10
-	ido-max-dir-file-cache 0
-        ido-create-new-buffer 'always
-        ido-default-file-method 'selected-window
-        ido-default-buffer-method 'selected-window)
-  :config
-  (ido-mode 1))
-
+;; -*- lexical-binding: t; -*-
 ;; Enable vertico
 (use-package vertico
   :ensure t
   :hook (after-init . vertico-mode)
   :custom
   (vertico-scroll-margin 0)
-  (vertico-count 20)
+  (vertico-count 5)
   (vertico-resize t)
   (vertico-cycle t)
   )
+
+(use-package completion-preview
+  :ensure nil
+  :demand t
+  :bind
+  ( :map completion-preview-active-mode-map
+    ("M-i" . completion-preview-insert-word)
+    ("M-n" . completion-preview-next-candidate)
+    ("M-p" . completion-preview-prev-candidate)
+    ("M-<return>" . completion-preview-insert)
+    ;; With TAB we effectively defer to the *Completions* buffer to
+    ;; show more completion candidates at once.
+    ("<tab>" . completion-preview-complete))
+  :config
+  (setq completion-preview-minimum-symbol-length 2)
+  (global-completion-preview-mode 1))
+
+;; I have a more detailed configuration (and explanation) that works
+;; with Emacs 31 built-in completion capabilities:
+;; https://protesilaos.com/codelog/2026-07-29-emacs-default-minibuffer-completion-overview/.
+(use-package minibuffer
+  :ensure nil
+  :demand t
+  :bind
+  ( :map completion-in-region-mode-map
+    ("M-i" . minibuffer-choose-completion)
+    ("M-n" . minibuffer-next-completion)
+    ("M-p" . minibuffer-previous-completion))
+  :config
+  (setq completions-format 'one-column)
+  (setq completions-max-height 12)
+  (setq completion-auto-help t)
+  (setq completion-auto-select nil)
+  (setq minibuffer-visible-completions t)
+  (setq completion-eager-update t))
 
 ;; A few more useful configurations...
 (use-package emacs
@@ -174,35 +196,35 @@
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
 )
 
-;; In-buffer completion
-(use-package corfu
-  :ensure t
-  :hook (after-init . global-corfu-mode)
-  :bind (:map corfu-map ("<tab>" . corfu-complete))
-  :custom
-  (corfu-cycle t)                      ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                       ;; Enable auto completion
-  (corfu-separator ?\s)                ;; Orderless field separator
-  (corfu-quit-at-boundary nil)         ;; Never quit at completion boundary
-  (corfu-quit-no-match t)              ;; quit, even if there is no match
-  (corfu-preview-current nil)          ;; Disable current candidate preview
-  (corfu-preselect t)                  ;; Preselect the prompt
-  (corfu-scroll-margin 3)              ;; Use scroll margin
-  (corfu-popupinfo-mode 1)             ;; shows documentation after `corfu-popupinfo-delay'
-  (corfu-on-exact-match nil)           ;; Don't complete while typing
-  :config
-  (setq tab-always-indent 'complete
-	corfu-min-width 20
-	corfu-popupinfo-delay '(1.25 . 0.5)
-	corfu-auto-delay  0.01
-	corfu-auto-prefix 0.01)
+;; ;; In-buffer completion
+;; (use-package corfu
+;;   :ensure t
+;;   :hook (after-init . global-corfu-mode)
+;;   :bind (:map corfu-map ("<tab>" . corfu-complete))
+;;   :custom
+;;   (corfu-cycle t)                      ;; Enable cycling for `corfu-next/previous'
+;;   (corfu-auto t)                       ;; Enable auto completion
+;;   (corfu-separator ?\s)                ;; Orderless field separator
+;;   (corfu-quit-at-boundary nil)         ;; Never quit at completion boundary
+;;   (corfu-quit-no-match t)              ;; quit, even if there is no match
+;;   (corfu-preview-current nil)          ;; Disable current candidate preview
+;;   (corfu-preselect t)                  ;; Preselect the prompt
+;;   (corfu-scroll-margin 3)              ;; Use scroll margin
+;;   (corfu-popupinfo-mode 1)             ;; shows documentation after `corfu-popupinfo-delay'
+;;   (corfu-on-exact-match nil)           ;; Don't complete while typing
+;;   :config
+;;   (setq tab-always-indent 'complete
+;; 	corfu-min-width 20
+;; 	corfu-popupinfo-delay '(1.25 . 0.5)
+;; 	corfu-auto-delay  0.01
+;; 	corfu-auto-prefix 0.01)
 
-  (add-hook 'corfu-mode-hook
-            (lambda ()
-              (setq-local completion-styles '(orderless-fast basic)
-			  completion-category-overrides '((file (styles partial-completion)))
-			  completion-category-defaults nil
-			  completion-pcm-leading-wildcard t))))
+;;   (add-hook 'corfu-mode-hook
+;;             (lambda ()
+;;               (setq-local completion-styles '(orderless-fast basic)
+;; 			  completion-category-overrides '((file (styles partial-completion)))
+;; 			  completion-category-defaults nil
+;; 			  completion-pcm-leading-wildcard t))))
 
 ;; Completion at point
 ;; TODO: https://github.com/minad/cape/issues/116

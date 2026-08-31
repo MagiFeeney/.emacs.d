@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;;###autoload
 (defun denote-dailies-capture (n &optional goto)
   "Create (or visit) the Denote daily note N days from today.

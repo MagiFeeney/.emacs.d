@@ -424,3 +424,18 @@ If ###@### is found, remove it and place point there at the end."
 (use-package dropbox
   :ensure t
   :vc (:url "https://github.com/lorniu/dropbox.el"))
+
+;; define a nested org map for scamx
+(defvar-keymap scamx-tab-bar-map
+  :doc "access tab bar mode via scamx")
+
+(use-package tab-bar
+  :ensure nil
+  :bind (:map scamx-tab-bar-map
+	      (("n" . tab-new)
+	       ("f" . tab-next)
+	       ("b" . tab-previous)
+	       ("0" . tab-close)
+	       ("l" . tab-last)
+	       ("RET" . tab-switch)
+	       ("d" . tab-duplicate))))

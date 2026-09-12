@@ -100,6 +100,16 @@
          (index (floor (* 7 (/ (float current) total))))) ; scale 0–7
     (aref blocks index)))
 
+(set-face-attribute 'tab-bar-tab nil
+                    :background "yellow"
+                    :foreground "black"
+                    :weight 'bold)
+
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :background "#333333"
+                    :foreground "#a0a0a0"
+                    :box nil)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

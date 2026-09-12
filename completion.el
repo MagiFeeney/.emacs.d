@@ -10,22 +10,6 @@
   (vertico-cycle t)
   )
 
-(use-package completion-preview
-  :ensure nil
-  :demand t
-  :bind
-  ( :map completion-preview-active-mode-map
-    ("M-i" . completion-preview-insert-word)
-    ("M-n" . completion-preview-next-candidate)
-    ("M-p" . completion-preview-prev-candidate)
-    ("M-<return>" . completion-preview-insert)
-    ;; With TAB we effectively defer to the *Completions* buffer to
-    ;; show more completion candidates at once.
-    ("<tab>" . completion-preview-complete))
-  :config
-  (setq completion-preview-minimum-symbol-length 2)
-  (global-completion-preview-mode 1))
-
 ;; I have a more detailed configuration (and explanation) that works
 ;; with Emacs 31 built-in completion capabilities:
 ;; https://protesilaos.com/codelog/2026-07-29-emacs-default-minibuffer-completion-overview/.
@@ -256,3 +240,18 @@
   :after vertico
   :config
   (vertico-prescient-mode))
+
+(use-package completion-preview
+  :ensure nil
+  :demand t
+  :bind
+  ( :map completion-preview-active-mode-map
+    ("<tab>" . completion-preview-insert-word)
+    ("<return>" . completion-preview-complete)
+    ("M-n" . completion-preview-next-candidate)
+    ("M-p" . completion-preview-prev-candidate)
+    ("M-<return>" . completion-preview-insert)
+    )
+  :config
+  (setq completion-preview-minimum-symbol-length 2)
+  (global-completion-preview-mode 1))

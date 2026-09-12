@@ -90,7 +90,7 @@
    '("g" . meow-visit-exit-all)
    '("x" . scamx-X-keymap)
    '("?" . scamx-help-keymap)
-   '("l" . meow-last-buffer)
+   '("l" . scamx-last-buffer)
    '("n" . next-buffer)
    '("p" . previous-buffer)
    '("f" . other-window)

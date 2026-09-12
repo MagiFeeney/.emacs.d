@@ -50,6 +50,7 @@
 (define-key scamx-X-keymap (kbd "RET") 'dired)
 (define-key scamx-X-keymap (kbd "o") scamx-org-map)
 (define-key scamx-X-keymap (kbd "d") scamx-denote-map)
+(define-key scamx-X-keymap (kbd "t") scamx-tab-bar-map)
 (define-key scamx-X-keymap (kbd "m") scamx-set-mode-map)
 (define-key scamx-X-keymap (kbd "u") scamx-utility-map)
 ;; customized

@@ -42,6 +42,14 @@
 
 (pixel-scroll-precision-mode)
 
+(setq show-paren-delay 0.05)
+(setq font-lock-maximum-decoration '((t . 2)))
+(setq inhibit-compacting-font-caches t)
+(setq redisplay-skip-fontification-on-input t)
+(setq fast-but-imprecise-scrolling t)
+(setq tooltip-delay 0.3)
+(setq tooltip-short-delay 0.08)
+
 (setq frame-title-format "Magi Feeney"
       inhibit-startup-screen t
       initial-scratch-message nil
@@ -227,6 +235,7 @@
 ;; load custom files
 (load-file "~/.emacs.d/window.el")
 (load-file "~/.emacs.d/theme.el")
+(load-file "~/.emacs.d/garmin.el")
 (load-file "~/.emacs.d/packages.el")
 (load-file "~/.emacs.d/completion.el")
 (load-file "~/.emacs.d/function.el")
@@ -304,6 +313,9 @@
 (put 'narrow-to-region 'disabled nil)
 
 (setq display-line-numbers-type 'visual)
+(setq-default display-line-numbers-grow-only nil)
+(setq-default display-line-numbers-width 3)
+(setq-default display-line-numbers-width-start nil)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 (custom-set-faces

@@ -220,7 +220,7 @@ If isRenew is non-nil, it indicates that my-password already has a value."
 If the file exists, prompt for a new folder and base name.
 If it doesn't exist, report 'not found' and stop."
   (interactive)
-  (let ((source-file (expand-file-name "~/Downloads/CodeCogsEqn.png"))
+  (let ((source-file (expand-file-name "~/Downloads/equation.png"))
         (default-suffix ".png"))
     (if (file-exists-p source-file)
         (let* ((target-base (read-file-name "Save image as: "))

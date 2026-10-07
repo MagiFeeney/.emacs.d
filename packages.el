@@ -68,7 +68,17 @@
      ("p" "Prioritized" entry (file+headline "~/Documents/Brain/Capture/priority.org" "Papers")
       "* TODO %?\n  %i\n  %a")
      ("s" "Sync Phone" entry (file+headline "~/Documents/Brain/Capture/sync-phone.org" "Daily")
-      "* TODO %?\n  %i\n  %a")))
+      "* TODO %?\n  %i\n  %a")
+
+     ("g" "Garmin Tasks")
+     ("gm" "Garmin Morning Task" entry
+      (file "/db:/garmin/morning_report.org")
+      "* TODO %?\n  DEADLINE: %(my/get-garmin-deadline)\n  Added: %U"
+      :empty-lines 1)
+     ("gt" "Garmin TODO" entry
+      (file "/db:/garmin/todo-list.org")
+      "* TODO %?\n  Added: %U"
+      :empty-lines 1)))
   :bind (:map scamx-org-map
 	      (("a" . org-agenda)
 	       ("s" . org-capture)

@@ -8,7 +8,9 @@
   (vertico-count 5)
   (vertico-resize t)
   (vertico-cycle t)
-  )
+  :bind (:map vertico-map
+         ("RET" . vertico-directory-enter)
+         ("<backspace>" . vertico-directory-up)))
 
 ;; I have a more detailed configuration (and explanation) that works
 ;; with Emacs 31 built-in completion capabilities:

@@ -16,9 +16,13 @@
         (when event
           (if (and (characterp event) (= event second-char))
               (progn
-		(if (eq major-mode 'vterm-mode)
-		    (vterm-send-backspace)
-                  (backward-delete-char 1))
+		(cond
+                 ((eq major-mode 'vterm-mode)
+                  (vterm-send-backspace))
+                 ((eq major-mode 'ghostel-mode)
+                  (ghostel-send-key "backspace"))
+                 (t
+                  (backward-delete-char 1)))
                 (set-buffer-modified-p modified)
                 (meow-insert-exit))
             (push event unread-command-events)))))))

@@ -4,6 +4,7 @@
   :doc "set to a specific mode"
   "s" 'eshell
   "v" 'vterm
+  "'" 'ghostel
   "m" 'magit-status
   "n" 'normal-mode
   "t" 'tex-mode

@@ -103,6 +103,20 @@
   ;; (add-hook 'org-mode-hook #'scamx-motion-org-mode)
   )
 
+;; preview latex in org mode
+(use-package org-latex-preview
+  :config
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-latex-create-formula-image-program 'dvisvgm)
+  (plist-put org-latex-preview-appearance-options
+             :page-width 0.8)
+  (add-hook 'org-mode-hook 'org-latex-preview-mode)
+  (setq org-latex-preview-mode-ignored-commands
+        '(next-line previous-line mwheel-scroll
+          scroll-up-command scroll-down-command))
+  (setq org-latex-preview-mode-display-live t)
+  (setq org-latex-preview-mode-update-delay 0.25))
+
 ;; org-roam
 (use-package org-roam
   :ensure t
@@ -223,6 +237,9 @@
          :map ghostel-semi-char-mode-map
          ("C-s"  . consult-line)
          ("C-k"  . my/ghostel-send-C-k-and-kill)
+	 ("C-c q" . (lambda () (interactive)
+                      (ghostel-send-key "x" "ctrl")
+                      (ghostel-send-key "q" "ctrl")))
          :map project-prefix-map
          ("m" . ghostel-project)
          ("M" . ghostel-project-list-buffers))

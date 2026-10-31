@@ -105,6 +105,9 @@
 
 ;; preview latex in org mode
 (use-package org-latex-preview
+  :ensure nil
+  :bind (:map scamx-org-map
+	      (("p" . org-latex-preview)))
   :config
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-latex-create-formula-image-program 'dvisvgm)
@@ -483,3 +486,27 @@ If ###@### is found, remove it and place point there at the end."
 	       ("l" . tab-last)
 	       ("RET" . tab-switch)
 	       ("d" . tab-duplicate))))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :defer t
+  :config
+  (exec-path-from-shell-initialize))
+
+(defun my/exec-path-from-shell-initialize-safe (&rest _args)
+  (unless (file-remote-p default-directory)
+    (exec-path-from-shell-initialize)))
+
+(use-package agent-shell
+  :ensure t
+  :defer t
+  :commands (agent-shell)
+  :init
+  (advice-add 'agent-shell :before #'my/exec-path-from-shell-initialize-safe)
+  :config
+  (setq agent-shell-header-style 'text)
+  (setq agent-shell-anthropic-claude-environment
+        (agent-shell-make-environment-variables :inherit-env t))
+  (setq agent-shell-anthropic-authentication
+        (agent-shell-anthropic-make-authentication
+         :login t)))

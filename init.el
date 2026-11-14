@@ -215,8 +215,8 @@
  '(org-fontify-todo-headline nil)
  '(package-selected-packages
    '(agent-shell auctex buffer-to-pdf cape consult-gh corfu-prescient
-		 denote docker dropbox dumb-jump ebib eglot
-		 exec-path-from-shell flash ghostel
+		 denote docker doric-themes dropbox dumb-jump ebib
+		 ef-themes eglot exec-path-from-shell flash ghostel
 		 gnu-elpa-keyring-update ivy-bibtex magit-todos
 		 marginalia meow multiple-cursors oauth olivetti
 		 orderless org org-mindmap org-modern org-ref org-roam

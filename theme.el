@@ -1,4 +1,5 @@
-;; -*- lexical-binding: t; -*-
+;;; theme.el --- Doric by day, Ef by night  -*- lexical-binding: t -*-
+
 (use-package modus-themes
   :ensure nil
   :demand t
@@ -17,9 +18,26 @@
      (agenda-structure . (light 1.3))
      (t . (1.1))))
 
+  (modus-themes-common-palette-overrides
+   '((bg-region bg-completion)
+     (fg-region unspecified)
+
+     (bg-tab-bar     bg-main)
+     (bg-tab-current bg-active)
+     (bg-tab-other   bg-dim)
+
+     (bg-line-number-active   bg-main)
+     (bg-line-number-inactive bg-main)
+
+     (fg-line-number-active   fg-dim)
+     (fg-line-number-inactive border)
+
+     (border-mode-line-active   unspecified)
+     (border-mode-line-inactive unspecified)
+     (fringe unspecified)))
+
   (modus-vivendi-palette-overrides
-   '(
-     (bg-main        "#000000")
+   '((bg-main        "#000000")
      (bg-dim         "#0a0f0a")
      (bg-active      "#111c17")
      (bg-inactive    "#1b2a24")
@@ -33,27 +51,60 @@
      (mail-subject   "#6ae4b9")
 
      (cursor "#5fd7af") (bg-completion "#248f6c") (bg-hl-line "#142f2b") ;;seagreen
+     (bg-mode-line-active     bg-dim))))
 
-     (bg-region bg-completion)
-     (fg-region unspecified)
+(use-package ef-themes
+  :ensure t)
 
-     (bg-tab-bar     bg-main)
-     (bg-tab-current bg-active)
-     (bg-tab-other   bg-dim)
+(use-package doric-themes
+  :ensure t)
 
-     (bg-mode-line-active     bg-dim)
-     (bg-line-number-active   bg-main)
-     (bg-line-number-inactive bg-main)
+(deftheme my-doric-tweaks "Heading sizes and mode line on top of Doric.")
 
-     (fg-line-number-active   fg-dim)
-     (fg-line-number-inactive border)
+(custom-theme-set-faces
+ 'my-doric-tweaks
+ '(org-level-1 ((t :weight ultra-bold :height 1.5)))
+ '(org-level-2 ((t :weight ultra-bold :height 1.3)))
+ '(org-level-3 ((t :height 1.1)))
+ '(org-level-4 ((t :height 1.1)))
+ '(org-level-5 ((t :height 1.1)))
+ '(org-level-6 ((t :height 1.1)))
+ '(org-level-7 ((t :height 1.1)))
+ '(org-level-8 ((t :height 1.1)))
+ '(org-agenda-date ((t :weight regular :height 1.1)))
+ '(org-agenda-structure ((t :weight light :height 1.3)))
+ '(mode-line ((t :box unspecified)))
+ '(mode-line-inactive ((t :box unspecified))))
 
-     (border-mode-line-active   unspecified)
-     (border-mode-line-inactive unspecified)
-     (fringe unspecified)))
-  :config
-  (load-theme 'modus-vivendi t))
+(defun my-doric-tweaks-follow (theme)
+  "Turn `my-doric-tweaks' on with a Doric THEME, off with any other."
+  (let ((props (get theme 'theme-properties)))
+    (cond ((eq (plist-get props :family) 'doric)
+           (enable-theme 'my-doric-tweaks))
+          ((eq (plist-get props :kind) 'color-scheme)
+           (disable-theme 'my-doric-tweaks)))))
 
+(add-hook 'enable-theme-functions #'my-doric-tweaks-follow)
+
+;;;; Day/night switching
+(defun my-theme-for-hour (hour)
+  (if (<= 7 hour 18) 'doric-oak 'ef-bio))
+
+(defvar my--clock-theme nil
+  "Theme last loaded by `my-sync-theme-with-clock'.")
+
+(defun my-sync-theme-with-clock ()
+  (let ((theme (my-theme-for-hour (decoded-time-hour (decode-time)))))
+    (unless (eq theme my--clock-theme)
+      (setq my--clock-theme theme)
+      (mapc #'disable-theme custom-enabled-themes)
+      (load-theme theme :no-confirm))))
+
+(my-sync-theme-with-clock)
+(cancel-function-timers #'my-sync-theme-with-clock)
+(run-at-time t 60 #'my-sync-theme-with-clock)
+
+;;;; scamx mode indicator
 (defface meow-normal-face
   '((t (:foreground "#89b4fa" :weight bold)))  ;; blue
   "Face for Meow NORMAL mode.")
@@ -123,3 +174,5 @@
  '(lazy-highlight ((t (:foreground "#67B7A4" :background "#0d0d0d"))))
  '(variable-pitch ((t (:family "ETBembo" :height 180 :weight thin))))
  '(window-divider ((t (:foreground "#b1bf88")))))
+
+;;; theme.el ends here

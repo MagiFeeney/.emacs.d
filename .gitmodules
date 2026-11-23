@@ -1,0 +1,3 @@
+[submodule "termose"]
+	path = termose
+	url = git@github.com:MagiFeeney/termose.git

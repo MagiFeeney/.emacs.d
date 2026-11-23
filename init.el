@@ -225,7 +225,6 @@
  '(package-vc-selected-packages
    '((buffer-to-pdf :vc-backend Git :url
 		    "https://github.com/protesilaos/buffer-to-pdf.git")
-     (ember-theme :url "https://github.com/ember-theme/emacs")
      (org-mindmap :url "https://github.com/krvkir/org-mindmap.git")
      (ghostel :url "https://github.com/dakra/ghostel")
      (dropbox :url "https://github.com/lorniu/dropbox.el")))
@@ -243,6 +242,35 @@
 (load-file "~/.emacs.d/completion.el")
 (load-file "~/.emacs.d/function.el")
 (load-file "~/.emacs.d/kmacros.el")
+
+(use-package termose
+  :load-path "~/.emacs.d/termose"
+  :commands (termose termose-menu termose-notebook termose-notebook-add)
+  :bind (("C-c t" . termose)
+         ("C-c m" . termose-menu)
+         ("C-c n" . termose-notebook))
+  :custom
+  (termose-notebook-files #'termose-notebook-denote-files)
+
+  ;; \options: (NAME EXPANSION [:default D] [:match REGEXP] [:at front|end] [:key K])
+  (termose-options
+   '(("gpu"  "CUDA_VISIBLE_DEVICES=%s" :default "0" :match "[0-9,]+")
+     ("uv"   "uv run" :at front)
+     ("log"  "2>&1 | tee %s" :at end :default "run.log" :match "\\S-*[./]\\S-*")
+     ("bg"   "&" :at end)
+     ("tmux" "tmux new -d -s %s {qcmd}" :key "x")))
+
+  ;; Templates on menu keys (Uppercase = group): {{name}} {{name:default}} {{name|a|b}} {{_}}
+  (termose-templates
+   '(("uv"    ("run"  "uv run {{script:main.py}} {{_}}")
+              ("sync" "uv sync"))
+     ("slurm" ("interactive" "srun --partition={{partition|gpu|cpu}} --gres=gpu:{{gpus:1}} --time={{time:04:00:00}} --pty bash")
+              ("queue" "squeue -u $USER"))))
+
+  ;; Optional
+  (termose-prefix "\\")
+  (termose-auto-popup t)
+  (termose-display-action '((display-buffer-at-bottom) (window-height . 6))))
 
 (use-package scamx
   :ensure meow

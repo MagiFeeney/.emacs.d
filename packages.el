@@ -276,6 +276,12 @@ Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
   :after magit
   :config (magit-todos-mode 1))
 
+(use-package forge
+  :ensure t
+  :after magit
+  :config
+  (setq auth-sources '("~/.authinfo")))
+
 (use-package markdown-mode
   :ensure t
   :defer t

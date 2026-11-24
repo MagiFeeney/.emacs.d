@@ -216,12 +216,13 @@
  '(package-selected-packages
    '(agent-shell auctex buffer-to-pdf cape consult-gh corfu-prescient
 		 denote docker doric-themes dropbox dumb-jump ebib
-		 ef-themes eglot exec-path-from-shell flash ghostel
-		 gnu-elpa-keyring-update ivy-bibtex magit-todos
-		 marginalia meow multiple-cursors oauth olivetti
-		 orderless org org-mindmap org-modern org-ref org-roam
-		 pdf-tools posframe python tramp vertico-prescient
-		 vterm yasnippet-capf yasnippet-snippets))
+		 ef-themes eglot exec-path-from-shell flash forge
+		 ghostel gnu-elpa-keyring-update ivy-bibtex
+		 magit-todos marginalia meow multiple-cursors oauth
+		 olivetti orderless org org-mindmap org-modern org-ref
+		 org-roam pdf-tools posframe python tramp
+		 vertico-prescient vterm yasnippet-capf
+		 yasnippet-snippets))
  '(package-vc-selected-packages
    '((buffer-to-pdf :vc-backend Git :url
 		    "https://github.com/protesilaos/buffer-to-pdf.git")
@@ -265,7 +266,11 @@
    '(("uv"    ("run"  "uv run {{script:main.py}} {{_}}")
               ("sync" "uv sync"))
      ("slurm" ("interactive" "srun --partition={{partition|gpu|cpu}} --gres=gpu:{{gpus:1}} --time={{time:04:00:00}} --pty bash")
-              ("queue" "squeue -u $USER"))))
+              ("queue" "squeue -u $USER"))
+     ("loop"  ("files"  "for f in {{glob:*}}; do {{_}} \"$f\"; done")
+              ("range"  "for i in $(seq {{from:1}} {{to:10}}); do {{_}}; done")
+              ("values" "for v in {{values:1 2 3}}; do {{_}}; done")
+              ("lines"  "while IFS= read -r line; do {{_}}; done < {{file}}"))))
 
   ;; Optional
   (termose-prefix "\\")
